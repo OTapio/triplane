@@ -26,11 +26,20 @@
 #include "gfx/font.h"
 #include "../io/video.h"
 
-void fill_vircr(int x1, int y1, int x2, int y2, unsigned char vari);
-void boxi(int x1, int y1, int x2, int y2, unsigned char vari);
-void draw_line(int x1, int y1, int x2, int y2, unsigned char vari);
-void putpix(int x, int y, unsigned char c, int x1, int y1, int x2, int y2);
-void tyhjaa_vircr();
-void do_all_clear(int do_retrace = 0);
+namespace gfx::gfx {
+
+    void fill_vircr(int x1, int y1, int x2, int y2, unsigned char vari);
+
+    void boxi(int x1, int y1, int x2, int y2, unsigned char vari);
+
+    void draw_line(int x1, int y1, int x2, int y2, unsigned char vari);
+
+    void putpix(int x, int y, unsigned char c, int x1, int y1, int x2, int y2);
+
+    void tyhjaa_vircr();
+
+    void do_all_clear(int do_retrace = 0);
+
+} // namespace gfx::gfx
 
 #endif

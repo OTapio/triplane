@@ -33,6 +33,9 @@ constexpr int32_t PROJECTOR_X2 = 315;
 constexpr int32_t PROJECTOR_Y1 = 8;
 constexpr int32_t PROJECTOR_Y2 = 178;
 
+constexpr int32_t CHARS_PER_LINE = 70;
+constexpr int32_t LINELENGHT = 100;
+
 void main_menu();
 void roster_menu();
 void credits_menu();
@@ -43,7 +46,7 @@ void controls_menu();
 int kangas_menu();
 int solo_player_menu();
 
-void print_clear_roster(Bitmap *rosteri);
+void print_clear_roster(gfx::bitmap::Bitmap *rosteri);
 void print_filled_roster(int number);
 void wait_mouse_relase(int nokb = 0);
 void load_descriptions(int number);

@@ -57,7 +57,7 @@ void init_vga(const char *paletname);
 void init_video();
 
 extern unsigned char *vircr;
-extern std::unique_ptr<Bitmap> standard_background;
+extern std::unique_ptr<gfx::bitmap::Bitmap> standard_background;
 extern int current_mode;
 extern int pixel_multiplier;
 extern int update_vircr_mode;

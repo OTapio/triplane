@@ -51,53 +51,53 @@ constexpr int32_t SUB_VERSION = 3;
 
 //\ Picturedata
 
-std::unique_ptr<Bitmap> board;
-std::unique_ptr<Bitmap> board2;
-std::unique_ptr<Bitmap> pwon;
-std::unique_ptr<Bitmap> pwoff;
-std::unique_ptr<Bitmap> picons[4];
-std::unique_ptr<Bitmap> plane1;
-std::unique_ptr<Bitmap> planes[16][61][4][2];
-std::unique_ptr<Bitmap> bomb[61];
-std::unique_ptr<Bitmap> boards[4];
-std::unique_ptr<Bitmap> closed;
-std::unique_ptr<Bitmap> bomb_icon;
-std::unique_ptr<Bitmap> gas_icon;
-std::unique_ptr<Bitmap> small_ammo_icon;
-std::unique_ptr<Bitmap> big_ammo_icon;
-std::unique_ptr<Bitmap> plane_crash[6];
-std::unique_ptr<Bitmap> smoke[SMOKE_FRAMES];
-std::unique_ptr<Bitmap> wave1[WAVE1_FRAMES];
-std::unique_ptr<Bitmap> wave2[WAVE2_FRAMES];
-std::unique_ptr<Bitmap> explox[4][EXPLOX_FRAMES];
-std::unique_ptr<Bitmap> maisema;
-std::unique_ptr<Bitmap> bites[NUMBER_OF_BITES];
-std::unique_ptr<Bitmap> menu1;
-std::unique_ptr<Bitmap> structures[MAX_STRUCTURES][2];
-std::unique_ptr<Bitmap> temp_bitti;
-std::unique_ptr<Bitmap> cursor;
-std::unique_ptr<Bitmap> kkbase[2][3][7];
-std::unique_ptr<Bitmap> infantry_walking[4][2][12];
-std::unique_ptr<Bitmap> infantry_dying[4][2][7];
-std::unique_ptr<Bitmap> infantry_aiming[4][2][6];
-std::unique_ptr<Bitmap> infantry_wavedeath[4][2][10];
-std::unique_ptr<Bitmap> infantry_shooting[4][2][6];
-std::unique_ptr<Bitmap> infantry_bdying[4][2][10];
-std::unique_ptr<Bitmap> infantry_dropping[4][2];
-std::unique_ptr<Bitmap> infantry_after_drop[4][2];
-std::unique_ptr<Bitmap> itexplosion[ITEXPLOSION_FRAMES];
-std::unique_ptr<Bitmap> flames[6];
-std::unique_ptr<Bitmap> status_icons[2][2];
-std::unique_ptr<Bitmap> hangarmenu;
-std::unique_ptr<Bitmap> hangaractive;
-std::unique_ptr<Bitmap> hangarinactive;
-std::unique_ptr<Bitmap> radar[4][8];
-std::unique_ptr<Bitmap> rifle[12];
-std::unique_ptr<Bitmap> hruks;
-std::unique_ptr<Bitmap> ssmoke[17];
-std::unique_ptr<Bitmap> ovi[13];
-std::unique_ptr<Bitmap> mekan_running[14][2];
-std::unique_ptr<Bitmap> mekan_pushing[2][14][2];
+std::unique_ptr<gfx::bitmap::Bitmap> board;
+std::unique_ptr<gfx::bitmap::Bitmap> board2;
+std::unique_ptr<gfx::bitmap::Bitmap> pwon;
+std::unique_ptr<gfx::bitmap::Bitmap> pwoff;
+std::unique_ptr<gfx::bitmap::Bitmap> picons[4];
+std::unique_ptr<gfx::bitmap::Bitmap> plane1;
+std::unique_ptr<gfx::bitmap::Bitmap> planes[16][61][4][2];
+std::unique_ptr<gfx::bitmap::Bitmap> bomb[61];
+std::unique_ptr<gfx::bitmap::Bitmap> boards[4];
+std::unique_ptr<gfx::bitmap::Bitmap> closed;
+std::unique_ptr<gfx::bitmap::Bitmap> bomb_icon;
+std::unique_ptr<gfx::bitmap::Bitmap> gas_icon;
+std::unique_ptr<gfx::bitmap::Bitmap> small_ammo_icon;
+std::unique_ptr<gfx::bitmap::Bitmap> big_ammo_icon;
+std::unique_ptr<gfx::bitmap::Bitmap> plane_crash[6];
+std::unique_ptr<gfx::bitmap::Bitmap> smoke[SMOKE_FRAMES];
+std::unique_ptr<gfx::bitmap::Bitmap> wave1[WAVE1_FRAMES];
+std::unique_ptr<gfx::bitmap::Bitmap> wave2[WAVE2_FRAMES];
+std::unique_ptr<gfx::bitmap::Bitmap> explox[4][EXPLOX_FRAMES];
+std::unique_ptr<gfx::bitmap::Bitmap> maisema;
+std::unique_ptr<gfx::bitmap::Bitmap> bites[NUMBER_OF_BITES];
+std::unique_ptr<gfx::bitmap::Bitmap> menu1;
+std::unique_ptr<gfx::bitmap::Bitmap> structures[MAX_STRUCTURES][2];
+std::unique_ptr<gfx::bitmap::Bitmap> temp_bitti;
+std::unique_ptr<gfx::bitmap::Bitmap> cursor;
+std::unique_ptr<gfx::bitmap::Bitmap> kkbase[2][3][7];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_walking[4][2][12];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_dying[4][2][7];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_aiming[4][2][6];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_wavedeath[4][2][10];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_shooting[4][2][6];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_bdying[4][2][10];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_dropping[4][2];
+std::unique_ptr<gfx::bitmap::Bitmap> infantry_after_drop[4][2];
+std::unique_ptr<gfx::bitmap::Bitmap> itexplosion[ITEXPLOSION_FRAMES];
+std::unique_ptr<gfx::bitmap::Bitmap> flames[6];
+std::unique_ptr<gfx::bitmap::Bitmap> status_icons[2][2];
+std::unique_ptr<gfx::bitmap::Bitmap> hangarmenu;
+std::unique_ptr<gfx::bitmap::Bitmap> hangaractive;
+std::unique_ptr<gfx::bitmap::Bitmap> hangarinactive;
+std::unique_ptr<gfx::bitmap::Bitmap> radar[4][8];
+std::unique_ptr<gfx::bitmap::Bitmap> rifle[12];
+std::unique_ptr<gfx::bitmap::Bitmap> hruks;
+std::unique_ptr<gfx::bitmap::Bitmap> ssmoke[17];
+std::unique_ptr<gfx::bitmap::Bitmap> ovi[13];
+std::unique_ptr<gfx::bitmap::Bitmap> mekan_running[14][2];
+std::unique_ptr<gfx::bitmap::Bitmap> mekan_pushing[2][14][2];
 
 int hangar_x[4];
 int hangar_y[4];
@@ -255,7 +255,7 @@ int flags_frame[MAX_FLAGS];
 int flags_x[MAX_FLAGS];
 int flags_y[MAX_FLAGS];
 int flags_owner[MAX_FLAGS];
-std::unique_ptr<Bitmap> flags[4][12];
+std::unique_ptr<gfx::bitmap::Bitmap> flags[4][12];
 
 //\\ AA-MG && AA-Gun
 
@@ -570,12 +570,12 @@ int small_warning(const char *message) {
   int x, y, n1, n2;
   int response = 0;
 
-  std::unique_ptr<Bitmap> warnkuva(new Bitmap("WARN2"));
+  std::unique_ptr<gfx::bitmap::Bitmap> warnkuva(new gfx::bitmap::Bitmap("WARN2"));
 
   while (flag) {
     koords(&x, &y, &n1, &n2);
 
-    tyhjaa_vircr();
+    gfx::gfx::tyhjaa_vircr();
     warnkuva->blit(87, 59);
     frost->printf(91, 77, message);
     cursor->blit(x - 10, y - 10);
@@ -1503,7 +1503,7 @@ void main_engine() {
 
   if (current_mode == SVGA_MODE) {
 
-    tyhjaa_vircr();
+    gfx::gfx::tyhjaa_vircr();
 
     if (split_num == 0) {
       maisema->blit(0, -4, 0, 0, screen_width_less, screen_height_less);
@@ -1545,7 +1545,7 @@ void main_engine() {
       }
     }
 
-    standard_background = std::make_unique<Bitmap>(0, 0, screen_width, screen_height);
+    standard_background = std::make_unique<gfx::bitmap::Bitmap>(0, 0, screen_width, screen_height);
     standard_background->blit(0, 0, 0, 0, screen_width_less,
                               screen_height_less);
 
@@ -1601,7 +1601,7 @@ void main_engine() {
 
   if (playing_solo) {
     world::tmexept::init_exeptions(solo_country, solo_mission);
-    tyhjaa_vircr();
+    gfx::gfx::tyhjaa_vircr();
   }
   //// Open joysticks
   if (playing_solo) {
@@ -1720,7 +1720,7 @@ void main_engine() {
         }
       }
 
-      model_planes();
+      world::plane::model_planes();
       do_bombs();
       do_bombs();
       detect_collision();
@@ -1754,7 +1754,7 @@ void main_engine() {
         if (!player_exists[l]) { continue; }
 
         player_last_shot[l]++;
-        if (!playing_solo && config.stop) { if (get_player_points(l) >= config.stop) { flag = 0; }}
+        if (!playing_solo && config.stop) { if (world::plane::get_player_points(l) >= config.stop) { flag = 0; }}
 
         if (in_closing[l]) { plane_present[l] = 0; }
       }
@@ -1789,7 +1789,7 @@ void main_engine() {
     do_debug_trace();
 
     if (current_mode == SVGA_MODE) {
-      do_all_clear(0);
+      gfx::gfx::do_all_clear(0);
     }
 
     rotate_water_palet();
@@ -1809,8 +1809,7 @@ void main_engine() {
     }
   }
 
-  if (!draw_with_vircr_mode)
-    update_vircr_mode = 1;
+  if (!draw_with_vircr_mode) { update_vircr_mode = 1; }
 
   wait_relase();
   mission_re_fly = -1;
@@ -1844,35 +1843,22 @@ void main_engine() {
 
 void do_aftermath(int show_it_all) {
 
-  int l, l2;
-  int tempt;
-  int firedi;
-  int infantry_score = 0;
-  int struct_score = 0;
-  int some_score;
-  int aaa_score = 0;
-  int x, y, n1, n2;
-  int need_for_letter = 0;
+  int l, l2, tempt, firedi, infantry_score = 0, struct_score = 0, some_score, aaa_score = 0, x, y, n1, n2, need_for_letter = 0, x_coord, best_in_record = 0, sisennys, mission_success = 0;
   char ch;
-  int x_coord;
-  int best_in_record = 0;
-  int sisennys;
-  int mission_success = 0;
 
-  std::unique_ptr<Bitmap> temp;
-  std::unique_ptr<Bitmap> temp2;
-  std::unique_ptr<Bitmap> fly(new Bitmap("FLY"));
-  std::unique_ptr<Bitmap> exit(new Bitmap("EXIT"));
+  std::unique_ptr<gfx::bitmap::Bitmap> temp;
+  std::unique_ptr<gfx::bitmap::Bitmap> temp2;
+  std::unique_ptr<gfx::bitmap::Bitmap> fly(new gfx::bitmap::Bitmap("FLY"));
+  std::unique_ptr<gfx::bitmap::Bitmap> exit(new gfx::bitmap::Bitmap("EXIT"));
 
   gfx::fades::random_fade_out();
 
   mission_re_fly = -1;
 
   if (show_it_all && (!playing_solo)) {
-    if (!findparameter("-debugnographics"))
-      init_vga("PALET5");
+    if (!findparameter("-debugnographics")) { init_vga("PALET5"); }
 
-    temp = std::make_unique<Bitmap>("SCORE");
+    temp = std::make_unique<gfx::bitmap::Bitmap>("SCORE");
     temp->blit(0, 0);
 
     for (l = 0; l < 4; l++) {
@@ -1880,10 +1866,9 @@ void do_aftermath(int show_it_all) {
         fontti->printf(69 + l2 * 30, 80 + l * 21, "%4d",
                        get_player_shots_down(l, l2));
       }
-      int points = get_player_points(l);
+      int points = world::plane::get_player_points(l);
       fontti->printf(194, 80 + l * 21, "%3d", abs(points));
-      if (points < 0)
-        fontti->printf(194, 80 + l * 21, "-");
+      if (points < 0) { fontti->printf(194, 80 + l * 21, "-"); }
 
       int fired = get_player_fired(l);
       fontti->printf(224, 80 + l * 21, "%5d", fired);
@@ -1907,17 +1892,16 @@ void do_aftermath(int show_it_all) {
                              mission_names[solo_mission + solo_country * 6]);
     sisennys = (320 - sisennys) >> 1;
 
-    temp = std::make_unique<Bitmap>("KANGAS", 0);
+    temp = std::make_unique<gfx::bitmap::Bitmap>("KANGAS", 0);
     temp->blit_fullscreen();
-    temp2 = std::make_unique<Bitmap>(260, 188, 37, 10, temp);
+    temp2 = std::make_unique<gfx::bitmap::Bitmap>(260, 188, 37, 10, temp);
     temp2->blit(0, 190);
 
     tempt = 0;
 
     l2 = 0;
     for (l = 0; l < MAX_STRUCTURES; l++) {
-      if (!leveldata.struct_x[l])
-        continue;
+      if (!leveldata.struct_x[l]) { continue; }
 
       if (!strcmp(leveldata.pd_name[l], "INFAN")) {
 
@@ -2123,8 +2107,8 @@ void do_aftermath(int show_it_all) {
   }
 
   if (show_it_all) {
-    standard_background = std::make_unique<Bitmap>(0, 0, 320, 200);
-    do_all_clear();
+    standard_background = std::make_unique<gfx::bitmap::Bitmap>(0, 0, 320, 200);
+    gfx::gfx::do_all_clear();
   }
 
   for (l = 0; l < 4; l++) {
@@ -2250,11 +2234,11 @@ void do_aftermath(int show_it_all) {
           l = 2;
         }
         cursor->blit(x - 10, y - 10);
-        do_all_clear();
+        gfx::gfx::do_all_clear();
         wait_mouse_relase();
       } else {
         cursor->blit(x - 10, y - 10);
-        do_all_clear();
+        gfx::gfx::do_all_clear();
       }
     }
 
@@ -2290,149 +2274,143 @@ void load_up() {
   }
 
   loading_text("Loading and initializing board-graphics.");
-  board = std::make_unique<Bitmap>("BOARD", 0);
-  boards[0] = std::make_unique<Bitmap>(2, 90, 159, 12, board);
-  boards[1] = std::make_unique<Bitmap>(162, 90, 158, 12, board);
-  boards[2] = std::make_unique<Bitmap>(2, 188, 159, 12, board);
-  boards[3] = std::make_unique<Bitmap>(162, 188, 158, 12, board);
+  board = std::make_unique<gfx::bitmap::Bitmap>("BOARD", 0);
+  boards[0] = std::make_unique<gfx::bitmap::Bitmap>(2, 90, 159, 12, board);
+  boards[1] = std::make_unique<gfx::bitmap::Bitmap>(162, 90, 158, 12, board);
+  boards[2] = std::make_unique<gfx::bitmap::Bitmap>(2, 188, 159, 12, board);
+  boards[3] = std::make_unique<gfx::bitmap::Bitmap>(162, 188, 158, 12, board);
 
-  closed = std::make_unique<Bitmap>("CLOSED", 0);
-  board2 = std::make_unique<Bitmap>("BOARD2", 0);
+  closed = std::make_unique<gfx::bitmap::Bitmap>("CLOSED", 0);
+  board2 = std::make_unique<gfx::bitmap::Bitmap>("BOARD2", 0);
 
   loading_text("Loading status icons.");
-  plane1 = std::make_unique<Bitmap>("STATUS");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("STATUS");
 
-  status_icons[0][0] = std::make_unique<Bitmap>(1, 1, 31, 11, plane1);
-  status_icons[0][1] = std::make_unique<Bitmap>(1, 13, 31, 11, plane1);
-  status_icons[1][0] = std::make_unique<Bitmap>(33, 1, 31, 11, plane1);
-  status_icons[1][1] = std::make_unique<Bitmap>(33, 13, 31, 11, plane1);
+  status_icons[0][0] = std::make_unique<gfx::bitmap::Bitmap>(1, 1, 31, 11, plane1);
+  status_icons[0][1] = std::make_unique<gfx::bitmap::Bitmap>(1, 13, 31, 11, plane1);
+  status_icons[1][0] = std::make_unique<gfx::bitmap::Bitmap>(33, 1, 31, 11, plane1);
+  status_icons[1][1] = std::make_unique<gfx::bitmap::Bitmap>(33, 13, 31, 11, plane1);
 
   loading_text("Loading smoke.");
 
-  plane1 = std::make_unique<Bitmap>("SMOKE");
-  for (l = 0; l < SMOKE_FRAMES; l++)
-    smoke[l] = std::make_unique<Bitmap>(1 + l * 21, 1, 20, 20, plane1);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("SMOKE");
+  for (l = 0; l < SMOKE_FRAMES; l++) { smoke[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 21, 1, 20, 20, plane1); }
 
-  plane1 = std::make_unique<Bitmap>("SSMOKE");
-  for (l = 0; l < 17; l++)
-    ssmoke[l] = std::make_unique<Bitmap>(1 + l * 10, 1, 9, 9, plane1);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("SSMOKE");
+  for (l = 0; l < 17; l++) { ssmoke[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 10, 1, 9, 9, plane1); }
 
   loading_text("Loading hangar.");
 
-  hangarmenu = std::make_unique<Bitmap>("HMENU", 0);
-  hangaractive = std::make_unique<Bitmap>("HACTIV");
-  hangarinactive = std::make_unique<Bitmap>("HINACT");
-  hruks = std::make_unique<Bitmap>("HRUKS");
+  hangarmenu = std::make_unique<gfx::bitmap::Bitmap>("HMENU", 0);
+  hangaractive = std::make_unique<gfx::bitmap::Bitmap>("HACTIV");
+  hangarinactive = std::make_unique<gfx::bitmap::Bitmap>("HINACT");
+  hruks = std::make_unique<gfx::bitmap::Bitmap>("HRUKS");
 
   loading_text("Loading radaricons.");
 
-  plane1 = std::make_unique<Bitmap>("RADAR");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("RADAR");
 
   for (l = 0; l < 4; l++)
     for (l2 = 0; l2 < 8; l2++) {
-      radar[l][l2] = std::make_unique<Bitmap>(1 + l2 * 4, 1 + l * 4, 3, 3, plane1);
+      radar[l][l2] = std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 4, 1 + l * 4, 3, 3, plane1);
     }
 
   loading_text("Loading waves.");
 
-  plane1 = std::make_unique<Bitmap>("WAVE1");
-  for (l = 0; l < WAVE1_FRAMES; l++)
-    wave1[l] = std::make_unique<Bitmap>(1 + l * 24, 1, 23, 23, plane1);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("WAVE1");
+  for (l = 0; l < WAVE1_FRAMES; l++) { wave1[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 24, 1, 23, 23, plane1); }
 
-  plane1 = std::make_unique<Bitmap>("WAVE2");
-  for (l = 0; l < WAVE2_FRAMES; l++)
-    wave2[l] = std::make_unique<Bitmap>(1 + l * 4, 1, 3, 5, plane1);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("WAVE2");
+  for (l = 0; l < WAVE2_FRAMES; l++) { wave2[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 4, 1, 3, 5, plane1); }
 
   loading_text("Loading flames");
 
-  plane1 = std::make_unique<Bitmap>("FLAME");
-  for (l = 0; l < NUMBER_OF_FLAMES; l++)
-    flames[l] = std::make_unique<Bitmap>(1 + l * 8, 1, 7, 14, plane1);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("FLAME");
+  for (l = 0; l < NUMBER_OF_FLAMES; l++) { flames[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 8, 1, 7, 14, plane1); }
 
   loading_text("Loading AAA Explosion.");
 
-  plane1 = std::make_unique<Bitmap>("ITEXP1");
-  for (l = 0; l < ITEXPLOSION_FRAMES; l++)
-    itexplosion[l] = std::make_unique<Bitmap>(1 + l * 24, 1, 23, 14, plane1);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("ITEXP1");
+  for (l = 0; l < ITEXPLOSION_FRAMES; l++) { itexplosion[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 24, 1, 23, 14, plane1); }
 
   loading_text("Loading explosion frames.");
 
   point1 = (unsigned char *)util::wutil::walloc(61 * 41);
-  for (l = 0; l < 2501; l++)
-    point1[l] = gfx::extra::converted_explosion[l];
+  for (l = 0; l < 2501; l++) { point1[l] = gfx::extra::converted_explosion[l]; }
 
-  plane1 = std::make_unique<Bitmap>(61, 41, point1, "explosion");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>(61, 41, point1, "explosion");
 
   for (l = 0; l < 4; l++)
-    for (l2 = 0; l2 < EXPLOX_FRAMES; l2++)
-      explox[l][l2] = std::make_unique<Bitmap>(1 + l2 * 10, 1 + l * 10, 9, 9, plane1);
+    for (l2 = 0; l2 < EXPLOX_FRAMES; l2++) {
+        explox[l][l2] = std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 10, 1 + l * 10, 9, 9, plane1);
+    }
 
   loading_text("Loading AA-MG animations");
 
-  plane1 = std::make_unique<Bitmap>("KKPESA");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("KKPESA");
   for (l = 0; l < 2; l++)
     for (l2 = 0; l2 < 7; l2++) {
-      kkbase[0][l][l2] = std::make_unique<Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
+      kkbase[0][l][l2] = std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
     }
 
   for (l2 = 0; l2 < 5; l2++)
-    kkbase[0][2][l2] = std::make_unique<Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
+    kkbase[0][2][l2] = std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
 
   loading_text("Loading AA-GUN animations");
 
-  plane1 = std::make_unique<Bitmap>("ITGUNS");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("ITGUNS");
   for (l = 0; l < 2; l++)
     for (l2 = 0; l2 < 7; l2++) {
-      kkbase[1][l][l2] = std::make_unique<Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
+      kkbase[1][l][l2] = std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
     }
 
   for (l2 = 0; l2 < 5; l2++)
-    kkbase[1][2][l2] = std::make_unique<Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
+    kkbase[1][2][l2] = std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 27, 1 + l * 22, 26, 21, plane1);
 
   loading_text("Loading hangar doors");
 
-  plane1 = std::make_unique<Bitmap>("OVI");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("OVI");
 
   for (l = 0; l < 13; l++)
-    ovi[l] = std::make_unique<Bitmap>(1 + l * 26, 1, 25, 13, plane1);
+    ovi[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 26, 1, 25, 13, plane1);
 
   loading_text("Loading mechanic");
 
-  plane1 = std::make_unique<Bitmap>("MEKAN1");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("MEKAN1");
   for (l = 0; l < 14; l++) {
-    mekan_running[l][0] = std::make_unique<Bitmap>(1 + 14 * l, 1, 13, 11, plane1);
+    mekan_running[l][0] = std::make_unique<gfx::bitmap::Bitmap>(1 + 14 * l, 1, 13, 11, plane1);
 
     point1 = (unsigned char *)util::wutil::walloc(13 * 11);
 
     point2 = mekan_running[l][0]->info(&xxx, &yyy);
-    mekan_running[l][1] = std::make_unique<Bitmap>(13, 11, point1, "mekan1");
+    mekan_running[l][1] = std::make_unique<gfx::bitmap::Bitmap>(13, 11, point1, "mekan1");
 
     for (xxx = 0; xxx < 13; xxx++)
       for (yyy = 0; yyy < 11; yyy++)
         point1[xxx + yyy * 13] = point2[12 - xxx + yyy * 13];
   }
 
-  plane1 = std::make_unique<Bitmap>("MEKAN2");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("MEKAN2");
   for (l = 0; l < 14; l++) {
-    mekan_pushing[0][l][0] = std::make_unique<Bitmap>(1 + 14 * l, 1, 13, 11, plane1);
+    mekan_pushing[0][l][0] = std::make_unique<gfx::bitmap::Bitmap>(1 + 14 * l, 1, 13, 11, plane1);
 
     point1 = (unsigned char *)util::wutil::walloc(13 * 11);
     point2 = mekan_pushing[0][l][0]->info(&xxx, &yyy);
-    mekan_pushing[0][l][1] = std::make_unique<Bitmap>(13, 11, point1, "mekan2");
+    mekan_pushing[0][l][1] = std::make_unique<gfx::bitmap::Bitmap>(13, 11, point1, "mekan2");
 
     for (xxx = 0; xxx < 13; xxx++)
       for (yyy = 0; yyy < 11; yyy++)
         point1[xxx + yyy * 13] = point2[12 - xxx + yyy * 13];
   }
 
-  plane1 = std::make_unique<Bitmap>("MEKAN3");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("MEKAN3");
   for (l = 0; l < 9; l++) {
-    mekan_pushing[1][l][1] = std::make_unique<Bitmap>(1 + 14 * l, 1, 13, 11, plane1);
+    mekan_pushing[1][l][1] = std::make_unique<gfx::bitmap::Bitmap>(1 + 14 * l, 1, 13, 11, plane1);
 
     point1 = (unsigned char *)util::wutil::walloc(13 * 11);
 
     point2 = mekan_pushing[1][l][1]->info(&xxx, &yyy);
-    mekan_pushing[1][l][0] = std::make_unique<Bitmap>(13, 11, point1, "mekan3");
+    mekan_pushing[1][l][0] = std::make_unique<gfx::bitmap::Bitmap>(13, 11, point1, "mekan3");
 
     for (xxx = 0; xxx < 13; xxx++)
       for (yyy = 0; yyy < 11; yyy++)
@@ -2443,35 +2421,35 @@ void load_up() {
 
   if (!findparameter("-debugnoinfantry")) {
 
-    plane1 = std::make_unique<Bitmap>("INFANT");
+    plane1 = std::make_unique<gfx::bitmap::Bitmap>("INFANT");
 
     for (l = 0; l < 4; l++) // Down X
     {
-      infantry_dropping[l][0] = std::make_unique<Bitmap>(257, 16 + l * 45, 15, 14, plane1);
-      infantry_after_drop[l][0] = std::make_unique<Bitmap>(257, 31 + l * 45, 15, 14, plane1);
+      infantry_dropping[l][0] = std::make_unique<gfx::bitmap::Bitmap>(257, 16 + l * 45, 15, 14, plane1);
+      infantry_after_drop[l][0] = std::make_unique<gfx::bitmap::Bitmap>(257, 31 + l * 45, 15, 14, plane1);
 
       for (l2 = 0; l2 < 12; l2++)
         infantry_walking[l][0][l2] =
-                std::make_unique<Bitmap>(1 + l2 * 16, 1 + l * 45, 15, 14, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 16, 1 + l * 45, 15, 14, plane1);
 
       for (l2 = 0; l2 < 7; l2++)
         infantry_dying[l][0][l2] =
-                std::make_unique<Bitmap>(193 + l2 * 16, 1 + l * 45, 15, 14, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(193 + l2 * 16, 1 + l * 45, 15, 14, plane1);
 
       for (l2 = 0; l2 < 6; l2++) {
         infantry_aiming[l][0][l2] =
-                std::make_unique<Bitmap>(1 + l2 * 16, 16 + l * 45, 15, 14, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 16, 16 + l * 45, 15, 14, plane1);
 
         infantry_shooting[l][0][l2] =
-                std::make_unique<Bitmap>(1 + l2 * 16, 31 + l * 45, 15, 14, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 16, 31 + l * 45, 15, 14, plane1);
       }
 
       for (l2 = 0; l2 < 10; l2++) {
         infantry_wavedeath[l][0][l2] =
-                std::make_unique<Bitmap>(97 + l2 * 16, 16 + l * 45, 15, 14, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(97 + l2 * 16, 16 + l * 45, 15, 14, plane1);
 
         infantry_bdying[l][0][l2] =
-                std::make_unique<Bitmap>(97 + l2 * 16, 31 + l * 45, 15, 14, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(97 + l2 * 16, 31 + l * 45, 15, 14, plane1);
       }
     }
 
@@ -2481,7 +2459,7 @@ void load_up() {
       point1 = (unsigned char *)util::wutil::walloc(15 * 14);
 
       point2 = infantry_dropping[l][0]->info(&xxx, &yyy);
-      infantry_dropping[l][1] = std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_dropping");
+      infantry_dropping[l][1] = std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_dropping");
 
       for (xxx = 0; xxx < 15; xxx++)
         for (yyy = 0; yyy < 14; yyy++)
@@ -2491,7 +2469,7 @@ void load_up() {
 
       point2 = infantry_after_drop[l][0]->info(&xxx, &yyy);
       infantry_after_drop[l][1] =
-              std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_after_drop");
+              std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_after_drop");
 
       for (xxx = 0; xxx < 15; xxx++)
         for (yyy = 0; yyy < 14; yyy++)
@@ -2502,7 +2480,7 @@ void load_up() {
 
         point2 = infantry_walking[l][0][l2]->info(&xxx, &yyy);
         infantry_walking[l][1][l2] =
-                std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_walking");
+                std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_walking");
 
         for (xxx = 0; xxx < 15; xxx++)
           for (yyy = 0; yyy < 14; yyy++)
@@ -2513,7 +2491,7 @@ void load_up() {
         point1 = (unsigned char *)util::wutil::walloc(15 * 14);
 
         point2 = infantry_dying[l][0][l2]->info(&xxx, &yyy);
-        infantry_dying[l][1][l2] = std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_dying");
+        infantry_dying[l][1][l2] = std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_dying");
 
         for (xxx = 0; xxx < 15; xxx++)
           for (yyy = 0; yyy < 14; yyy++)
@@ -2525,7 +2503,7 @@ void load_up() {
 
         point2 = infantry_aiming[l][0][l2]->info(&xxx, &yyy);
         infantry_aiming[l][1][l2] =
-                std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_aiming");
+                std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_aiming");
 
         for (xxx = 0; xxx < 15; xxx++)
           for (yyy = 0; yyy < 14; yyy++)
@@ -2534,7 +2512,7 @@ void load_up() {
         point1 = (unsigned char *)util::wutil::walloc(15 * 14);
         point2 = infantry_shooting[l][0][l2]->info(&xxx, &yyy);
         infantry_shooting[l][1][l2] =
-                std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_shooting");
+                std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_shooting");
 
         for (xxx = 0; xxx < 15; xxx++)
           for (yyy = 0; yyy < 14; yyy++)
@@ -2545,7 +2523,7 @@ void load_up() {
         point1 = (unsigned char *)util::wutil::walloc(15 * 14);
         point2 = infantry_wavedeath[l][0][l2]->info(&xxx, &yyy);
         infantry_wavedeath[l][1][l2] =
-                std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_wavedeath");
+                std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_wavedeath");
 
         for (xxx = 0; xxx < 15; xxx++)
           for (yyy = 0; yyy < 14; yyy++)
@@ -2555,7 +2533,7 @@ void load_up() {
 
         point2 = infantry_bdying[l][0][l2]->info(&xxx, &yyy);
         infantry_bdying[l][1][l2] =
-                std::make_unique<Bitmap>(15, 14, point1, "mirr_inf_bdying");
+                std::make_unique<gfx::bitmap::Bitmap>(15, 14, point1, "mirr_inf_bdying");
 
         for (xxx = 0; xxx < 15; xxx++)
           for (yyy = 0; yyy < 14; yyy++)
@@ -2567,20 +2545,20 @@ void load_up() {
   if (!findparameter("-debugnorotate")) {
 
     loading_text("Loading and rotating bomb.");
-    bomb[0] = std::make_unique<Bitmap>("BOMB");
+    bomb[0] = std::make_unique<gfx::bitmap::Bitmap>("BOMB");
 
     for (l = 1; l < 61; l++) {
       bomb[l] = rotate_bitmap(bomb[0], l * 6);
     }
 
     loading_text("Loading main planepicture.");
-    plane1 = std::make_unique<Bitmap>("PLANES");
+    plane1 = std::make_unique<gfx::bitmap::Bitmap>("PLANES");
 
     loading_text("Generating rotated pictures.");
     for (l3 = 0; l3 < 4; l3++)
       for (l2 = 0; l2 < 4; l2++) {
         planes[l2][0][l3][0] =
-                std::make_unique<Bitmap>(1 + l3 * 21, 1 + l2 * 21, 20, 20, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(1 + l3 * 21, 1 + l2 * 21, 20, 20, plane1);
         plane_p[l2][0][l3][0] = planes[l2][0][l3][0]->info(&xxx, &yyy);
         for (l = 1; l < 16; l++) {
           planes[l2][l][l3][0] = rotate_bitmap(planes[l2][0][l3][0], l * 6);
@@ -2591,7 +2569,7 @@ void load_up() {
     for (l3 = 0; l3 < 4; l3++)
       for (l2 = 0; l2 < 4; l2++) {
         planes[l2][0][l3][0] =
-                std::make_unique<Bitmap>(1 + l3 * 21, 1 + l2 * 21, 20, 20, plane1);
+                std::make_unique<gfx::bitmap::Bitmap>(1 + l3 * 21, 1 + l2 * 21, 20, 20, plane1);
         plane_p[l2][0][l3][0] = planes[l2][0][l3][0]->info(&xxx, &yyy);
         for (l = 45; l < 60; l++) {
           planes[l2][l][l3][0] = rotate_bitmap(planes[l2][0][l3][0], l * 6);
@@ -2605,11 +2583,11 @@ void load_up() {
           point1 = planes[l1][l2][l3][0]->info(&xxx, &yyy);
           point2 = (unsigned char *)util::wutil::walloc(400);
           if (!l2) {
-            planes[l1][30][l3][1] = std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_1");
+            planes[l1][30][l3][1] = std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_1");
             plane_p[l1][30][l3][1] = point2;
           } else {
             planes[l1][30 - l2][l3][1] =
-                    std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_2");
+                    std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_2");
             plane_p[l1][30 - l2][l3][1] = point2;
           }
           for (xxx = 0; xxx < 20; xxx++)
@@ -2624,7 +2602,7 @@ void load_up() {
           point2 = (unsigned char *)util::wutil::walloc(400);
 
           planes[l1][90 - l2][l3][1] =
-                  std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_3");
+                  std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_3");
           plane_p[l1][90 - l2][l3][1] = point2;
 
           for (xxx = 0; xxx < 20; xxx++)
@@ -2638,11 +2616,11 @@ void load_up() {
           point1 = planes[l1][l2][l3][0]->info(&xxx, &yyy);
           point2 = (unsigned char *)util::wutil::walloc(400);
           if (!l2) {
-            planes[l1][0][l3][1] = std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_4");
+            planes[l1][0][l3][1] = std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_4");
             plane_p[l1][0][l3][1] = point2;
           } else {
             planes[l1][60 - l2][l3][1] =
-                    std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_5");
+                    std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_5");
             plane_p[l1][60 - l2][l3][1] = point2;
           }
           for (xxx = 0; xxx < 20; xxx++)
@@ -2656,11 +2634,11 @@ void load_up() {
           point1 = planes[l1][l2][l3][0]->info(&xxx, &yyy);
           point2 = (unsigned char *)util::wutil::walloc(400);
           if (!l2) {
-            planes[l1][0][l3][1] = std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_6");
+            planes[l1][0][l3][1] = std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_6");
             plane_p[l1][0][l3][1] = point2;
           } else {
             planes[l1][60 - l2][l3][1] =
-                    std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_7");
+                    std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_7");
             plane_p[l1][60 - l2][l3][1] = point2;
           }
           for (xxx = 0; xxx < 20; xxx++)
@@ -2675,7 +2653,7 @@ void load_up() {
           point2 = (unsigned char *)util::wutil::walloc(400);
 
           planes[l1][60 - l2][l3][0] =
-                  std::make_unique<Bitmap>(20, 20, point2, "mirr_plane_8");
+                  std::make_unique<gfx::bitmap::Bitmap>(20, 20, point2, "mirr_plane_8");
           plane_p[l1][60 - l2][l3][0] = point2;
 
           for (xxx = 0; xxx < 20; xxx++)
@@ -2717,57 +2695,57 @@ void load_up() {
 
   loading_text("Loading explosions.");
 
-  plane1 = std::make_unique<Bitmap>("CRASH");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("CRASH");
   for (l = 0; l < 6; l++)
-    plane_crash[l] = std::make_unique<Bitmap>(1 + 21 * l, 1, 20, 20, plane1);
+    plane_crash[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + 21 * l, 1, 20, 20, plane1);
 
   loading_text("Loading icons.");
 
-  bomb_icon = std::make_unique<Bitmap>("ASE1", 0);
-  gas_icon = std::make_unique<Bitmap>("ASE2", 0);
-  small_ammo_icon = std::make_unique<Bitmap>("ASE4", 0);
-  big_ammo_icon = std::make_unique<Bitmap>("ASE3", 0);
+  bomb_icon = std::make_unique<gfx::bitmap::Bitmap>("ASE1", 0);
+  gas_icon = std::make_unique<gfx::bitmap::Bitmap>("ASE2", 0);
+  small_ammo_icon = std::make_unique<gfx::bitmap::Bitmap>("ASE4", 0);
+  big_ammo_icon = std::make_unique<gfx::bitmap::Bitmap>("ASE3", 0);
 
-  plane1 = std::make_unique<Bitmap>("PICONS", 0);
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("PICONS", 0);
   for (l = 0; l < 4; l++)
-      picons[l] = std::make_unique<Bitmap>(9 * l, 0, 9, 9, plane1);
+      picons[l] = std::make_unique<gfx::bitmap::Bitmap>(9 * l, 0, 9, 9, plane1);
 
-  pwon = std::make_unique<Bitmap>("PWON");
-  pwoff = std::make_unique<Bitmap>("PWOFF");
+  pwon = std::make_unique<gfx::bitmap::Bitmap>("PWON");
+  pwoff = std::make_unique<gfx::bitmap::Bitmap>("PWOFF");
 
   loading_text("Loading small parts.");
 
-  plane1 = std::make_unique<Bitmap>("BITES");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("BITES");
   for (l = 0; l < NUMBER_OF_BITES; l++)
-    bites[l] = std::make_unique<Bitmap>(1 + 11 * l, 1, 10, 10, plane1);
+    bites[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + 11 * l, 1, 10, 10, plane1);
 
-  plane1 = std::make_unique<Bitmap>("RIFLE");
+  plane1 = std::make_unique<gfx::bitmap::Bitmap>("RIFLE");
   for (l = 0; l < 12; l++)
-    rifle[l] = std::make_unique<Bitmap>(1 + 9 * l, 1, 8, 8, plane1);
+    rifle[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + 9 * l, 1, 8, 8, plane1);
 
   loading_text("Loading menu graphics.");
 
-  menu1 = std::make_unique<Bitmap>("MENU01");
+  menu1 = std::make_unique<gfx::bitmap::Bitmap>("MENU01");
 
   loading_text("Loading flags.");
 
-  temp_bitti = std::make_unique<Bitmap>("FLAGS");
+  temp_bitti = std::make_unique<gfx::bitmap::Bitmap>("FLAGS");
 
   for (l = 0; l < 4; l++) {
     for (l2 = 0; l2 < 12; l2++) {
-      flags[l][l2] =  std::make_unique<Bitmap>(1 + l2 * 14, 1 + l * 10, 13, 9, temp_bitti);
+      flags[l][l2] =  std::make_unique<gfx::bitmap::Bitmap>(1 + l2 * 14, 1 + l * 10, 13, 9, temp_bitti);
     }
   }
 
   loading_text("Loading mouse cursor.");
-  cursor = std::make_unique<Bitmap>("CURSOR");
+  cursor = std::make_unique<gfx::bitmap::Bitmap>("CURSOR");
 }
 
 void load_level() {
   int l, l2, i;
   int xx, yy;
   int c_flag;
-  std::unique_ptr<Bitmap> temppic;
+  std::unique_ptr<gfx::bitmap::Bitmap> temppic;
 
   loading_text("Loading levelinfo.");
 
@@ -2830,7 +2808,7 @@ void load_level() {
 
   loading_text("Loading scenery.");
 
-  maisema = std::make_unique<Bitmap>(leveldata.pb_name, 0);
+  maisema = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pb_name, 0);
 
   loading_text("Loading structures.");
 
@@ -2947,24 +2925,24 @@ void load_level() {
       }
 
       if (leveldata.struct_hit[l]) {
-        structures[l][0] = std::make_unique<Bitmap>(leveldata.pd_name[l]);
+        structures[l][0] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[l]);
 
       } else {
-        temppic = std::make_unique<Bitmap>(leveldata.pd_name[l]);
+        temppic = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[l]);
         temppic->info(&struct_width[l], &struct_heigth[l]);
 
         structures[l][0] =
-                std::make_unique<Bitmap>(leveldata.struct_x[l], leveldata.struct_y[l],
+                std::make_unique<gfx::bitmap::Bitmap>(leveldata.struct_x[l], leveldata.struct_y[l],
                        struct_width[l], struct_heigth[l], maisema);
 
         temppic->blit_to_bitmap(structures[l][0], 0, 0);
 
         for (l2 = 0; l2 < NUMBER_OF_STRUCT_NAMES; l2++) {
           if (!strcmp(struct_names[l2 * 2], leveldata.pd_name[l])) {
-            temppic = std::make_unique<Bitmap>(struct_names[l2 * 2 + 1]);
+            temppic = std::make_unique<gfx::bitmap::Bitmap>(struct_names[l2 * 2 + 1]);
 
             structures[l][1] =
-                    std::make_unique<Bitmap>(leveldata.struct_x[l], leveldata.struct_y[l],
+                    std::make_unique<gfx::bitmap::Bitmap>(leveldata.struct_x[l], leveldata.struct_y[l],
                            struct_width[l], struct_heigth[l], maisema);
 
             temppic->blit_to_bitmap(structures[l][1], 0, 0);
@@ -2974,7 +2952,7 @@ void load_level() {
         }
 
         if (l2 == NUMBER_OF_STRUCT_NAMES) {
-          structures[l][0] = std::make_unique<Bitmap>(leveldata.pd_name[l]);
+          structures[l][0] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[l]);
           structures[l][0]->info(&struct_width[l], &struct_heigth[l]);
         }
       }
@@ -3346,7 +3324,7 @@ int main(int argc, char *argv[]) {
   int x, y, n1, n2;
   int laskuri;
   FILE *faili;
-  std::unique_ptr<Bitmap> lakuva1;
+  std::unique_ptr<gfx::bitmap::Bitmap> lakuva1;
 
   for (laskuri = 0; laskuri < argc; laskuri++)
     strcpy(parametrit[laskuri], argv[laskuri]);
@@ -3451,7 +3429,7 @@ int main(int argc, char *argv[]) {
   }
 
   init_vga("PALETD");
-  lakuva1 = std::make_unique<Bitmap>("STARTD", 0);
+  lakuva1 = std::make_unique<gfx::bitmap::Bitmap>("STARTD", 0);
 
   lakuva1->blit(0, 0);
   do_all();
@@ -3490,7 +3468,7 @@ int main(int argc, char *argv[]) {
   }
 
 #ifdef NO_TRADEMARK_PROBLEMS
-  lakuva1 = std::make_unique<Bitmap>("START1", 0);
+  lakuva1 = std::make_unique<gfx::bitmap::Bitmap>("START1", 0);
   init_vga("PALETA");
 
   lakuva1->blit(0, 0);

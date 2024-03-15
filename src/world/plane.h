@@ -58,7 +58,11 @@ extern int t_plane_bombs[16];
 extern int t_plane_gas[16];
 extern int t_plane_ammo[16];
 
-void model_planes();
-int get_player_points(int player);
+namespace world::plane {
+
+    void model_planes();
+    int get_player_points(int player);
+
+} // namespace world::plane
 
 #endif

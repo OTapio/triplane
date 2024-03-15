@@ -25,7 +25,7 @@ namespace gfx::font {
 
     class Font {
     private:
-        Bitmap *glyphs[256];
+        bitmap::Bitmap *glyphs[256];
         int width;
         int height;
         int char_width[256];

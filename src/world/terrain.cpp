@@ -85,16 +85,14 @@ void tboxi(int x1, int y1, int x2, int y2, unsigned char vari) {
   if (y1 < 8)
     y1 = 8;
 
-  draw_line(x1, y1, x2, y1, vari);
-  draw_line(x1, y1, x1, y2, vari);
-  draw_line(x2, y2, x2, y1, vari);
-  draw_line(x2, y2, x1, y2, vari);
+  gfx::gfx::draw_line(x1, y1, x2, y1, vari);
+  gfx::gfx::draw_line(x1, y1, x1, y2, vari);
+  gfx::gfx::draw_line(x2, y2, x2, y1, vari);
+  gfx::gfx::draw_line(x2, y2, x1, y2, vari);
 }
 
 void terrain_to_screen() {
-  int l, l2;
-  int tempx, tempy;
-  int temp;
+  int l, l2, tempx, tempy, temp;
 
   for (l = 0; l < 16; l++) {
     if (!player_exists[l])
@@ -112,18 +110,18 @@ void terrain_to_screen() {
       player_shown_x[l] = 80 - (player_x_speed[l] / 5500);
       player_shown_y[l] = 45 + (player_y_speed[l] / 10000);
 
-      if (((player_x_8[l]) - player_shown_x[l] + 160) > NUMBER_OF_SCENES * 160)
-        player_shown_x[l] -= NUMBER_OF_SCENES * 160 -
-                             ((player_x_8[l]) - player_shown_x[l] + 160);
+      if (((player_x_8[l]) - player_shown_x[l] + 160) > NUMBER_OF_SCENES * 160) {
+          player_shown_x[l] -= NUMBER_OF_SCENES * 160 -
+                               ((player_x_8[l]) - player_shown_x[l] + 160);
+      }
 
-      if (((player_y_8[l]) - player_shown_y[l] + 90) > 200)
-        player_shown_y[l] -= 200 - ((player_y_8[l]) - player_shown_y[l] + 90);
+      if (((player_y_8[l]) - player_shown_y[l] + 90) > 200) {
+          player_shown_y[l] -= 200 - ((player_y_8[l]) - player_shown_y[l] + 90);
+      }
 
-      if (((player_x_8[l]) - player_shown_x[l]) < 0)
-        player_shown_x[l] += ((player_x_8[l]) - player_shown_x[l]);
+      if (((player_x_8[l]) - player_shown_x[l]) < 0) { player_shown_x[l] += ((player_x_8[l]) - player_shown_x[l]); }
 
-      if (((player_y_8[l]) - player_shown_y[l]) < 0)
-        player_shown_y[l] += ((player_y_8[l]) - player_shown_y[l]);
+      if (((player_y_8[l]) - player_shown_y[l]) < 0) { player_shown_y[l] += ((player_y_8[l]) - player_shown_y[l]); }
 
       maisema->blit(player_shown_x[l] - (player_x_8[l]) + x_muutos[l],
                     player_shown_y[l] - (player_y_8[l]) + y_muutos[l],
@@ -142,8 +140,7 @@ void terrain_to_screen() {
       }
 
       for (l2 = 0; l2 < 4; l2++) {
-        if (!hangar_x[l2])
-          continue;
+        if (!hangar_x[l2]) { continue; }
         ovi[hangar_door_frame[l2]]->blit(hangar_x[l2] + 27 + player_shown_x[l] -
                                              (player_x_8[l]) + x_muutos[l],
                                          hangar_y[l2] + 3 + player_shown_y[l] -
@@ -152,20 +149,20 @@ void terrain_to_screen() {
                                          y2_raja[l]);
       }
 
-      if (config.flags)
-        for (l2 = 0; l2 < MAX_FLAGS; l2++) {
-          if (flags_x[l2]) {
+      if (config.flags) {
+          for (l2 = 0; l2 < MAX_FLAGS; l2++) {
+              if (flags_x[l2]) {
 
-            flags[flags_owner[l2]][flags_frame[l2]]->blit(
-                flags_x[l2] + player_shown_x[l] - (player_x_8[l]) + x_muutos[l],
-                flags_y[l2] + player_shown_y[l] - (player_y_8[l]) + y_muutos[l],
-                x1_raja[l], y1_raja[l], x2_raja[l], y2_raja[l]);
+                  flags[flags_owner[l2]][flags_frame[l2]]->blit(
+                          flags_x[l2] + player_shown_x[l] - (player_x_8[l]) + x_muutos[l],
+                          flags_y[l2] + player_shown_y[l] - (player_y_8[l]) + y_muutos[l],
+                          x1_raja[l], y1_raja[l], x2_raja[l], y2_raja[l]);
+              }
           }
-        }
+      }
 
       for (l2 = 0; l2 < MAX_AA_GUNS; l2++) {
-        if (!kkbase_x[l2])
-          continue;
+        if (!kkbase_x[l2]) { continue; }
 
         if (kkbase_status[l2] != 2) {
           kkbase[kkbase_type[l2]][kkbase_status[l2]][kkbase_frame[l2]]->blit(
@@ -183,8 +180,7 @@ void terrain_to_screen() {
       }
 
       for (l2 = 0; l2 < MAX_INFANTRY; l2++) {
-        if (!infan_x[l2])
-          continue;
+        if (!infan_x[l2]) { continue; }
 
         switch (infan_state[l2]) {
         case 0:
@@ -364,7 +360,7 @@ void terrain_to_screen() {
       if (config.shots_visible)
         for (l2 = 0; l2 < MAX_SHOTS; l2++) {
           if (shots_flying_x[l2])
-            putpix((shots_flying_x[l2] >> 8) + player_shown_x[l] -
+            gfx::gfx::putpix((shots_flying_x[l2] >> 8) + player_shown_x[l] -
                        (player_x_8[l]) + x_muutos[l],
                    (shots_flying_y[l2] >> 8) + player_shown_y[l] -
                        (player_y_8[l]) + y_muutos[l],
@@ -374,7 +370,7 @@ void terrain_to_screen() {
       if (config.it_shots_visible)
         for (l2 = 0; l2 < MAX_ITGUN_SHOTS; l2++) {
           if (itgun_shot_x[l2])
-            putpix((itgun_shot_x[l2] >> 8) + player_shown_x[l] -
+            gfx::gfx::putpix((itgun_shot_x[l2] >> 8) + player_shown_x[l] -
                        (player_x_8[l]) + x_muutos[l],
                    (itgun_shot_y[l2] >> 8) + player_shown_y[l] -
                        (player_y_8[l]) + y_muutos[l],
@@ -622,10 +618,9 @@ void terrain_to_screen() {
       }
     }
 
-    int points = get_player_points(l);
+    int points = world::plane::get_player_points(l);
     fontti->printf(144 + x_muutos[l], 93 + (l / 2) * 98, "%3d", abs(points));
-    if (points < 0)
-      fontti->printf(144 + x_muutos[l], 93 + (l / 2) * 98, "-");
+    if (points < 0) { fontti->printf(144 + x_muutos[l], 93 + (l / 2) * 98, "-"); }
   }
 
   for (l = 0; l < 16; l++)
@@ -923,14 +918,14 @@ void solo_terrain_to_screen() {
   if (config.shots_visible)
     for (l2 = 0; l2 < MAX_SHOTS; l2++) {
       if (shots_flying_x[l2])
-        putpix((shots_flying_x[l2] >> 8) + player_shown_x[l] - (player_x_8[l]),
+        gfx::gfx::putpix((shots_flying_x[l2] >> 8) + player_shown_x[l] - (player_x_8[l]),
                (shots_flying_y[l2] >> 8), SHOTS_COLOR, 0, 0, 319, 199);
     }
 
   if (config.it_shots_visible)
     for (l2 = 0; l2 < MAX_ITGUN_SHOTS; l2++) {
       if (itgun_shot_x[l2])
-        putpix((itgun_shot_x[l2] >> 8) + player_shown_x[l] - (player_x_8[l]),
+        gfx::gfx::putpix((itgun_shot_x[l2] >> 8) + player_shown_x[l] - (player_x_8[l]),
                (itgun_shot_y[l2] >> 8), ITGUN_SHOT_COLOR, 0, 0, 319, 199);
     }
 
@@ -1136,16 +1131,13 @@ void vesa_terrain_to_screen() {
   int l, l2, templevel;
 
   for (l = 0; l < 16; l++) {
-    if (!player_exists[l])
-      continue;
+    if (!player_exists[l]) { continue; }
 
-    if ((in_closing[l] > 0) && (in_closing[l] <= 86))
-      in_closing[l] += 2;
+    if ((in_closing[l] > 0) && (in_closing[l] <= 86)) { in_closing[l] += 2; }
   }
 
   for (l = 0; l < 4; l++) {
-    if (!hangar_x[l])
-      continue;
+    if (!hangar_x[l]) { continue; }
 
     templevel = (hangar_x[l] + 27) / screen_width;
     ovi[hangar_door_frame[l]]->blit(hangar_x[l] + 27 - templevel * screen_width,
@@ -1165,8 +1157,7 @@ void vesa_terrain_to_screen() {
     }
 
   for (l = 0; l < MAX_AA_GUNS; l++) {
-    if (!kkbase_x[l])
-      continue;
+    if (!kkbase_x[l]) { continue; }
 
     templevel = kkbase_x[l] / screen_width;
 
@@ -1376,7 +1367,7 @@ void vesa_terrain_to_screen() {
   if (config.shots_visible)
     for (l2 = 0; l2 < MAX_SHOTS; l2++) {
       if (shots_flying_x[l2])
-        putpix((shots_flying_x[l2] >> 8) -
+        gfx::gfx::putpix((shots_flying_x[l2] >> 8) -
                    ((shots_flying_x[l2] >> 8) / screen_width) * screen_width,
                (shots_flying_y[l2] >> 8) +
                    ((shots_flying_x[l2] >> 8) / screen_width) * 196 - 4,
@@ -1386,7 +1377,7 @@ void vesa_terrain_to_screen() {
   if (config.it_shots_visible)
     for (l2 = 0; l2 < MAX_ITGUN_SHOTS; l2++) {
       if (itgun_shot_x[l2])
-        putpix((itgun_shot_x[l2] >> 8) -
+        gfx::gfx::putpix((itgun_shot_x[l2] >> 8) -
                    ((itgun_shot_x[l2] >> 8) / screen_width) * screen_width,
                (itgun_shot_y[l2] >> 8) +
                    ((itgun_shot_x[l2] >> 8) / screen_width) * 196 - 4,
@@ -1562,7 +1553,7 @@ void vesa_icons(int l) {
                      ((player_gas[l] - ((player_gas[l] >> 8) << 8))) / 32,
                  0, screen_height - 10, screen_width_less, screen_height_less);
 
-  int points = get_player_points(l);
+  int points = world::plane::get_player_points(l);
   fontti->printf(l * 160 + 142, screen_height - 9, "%3d", abs(points));
   if (points < 0)
     fontti->printf(l * 160 + 142, screen_height - 9, "-");

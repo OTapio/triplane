@@ -110,231 +110,230 @@ int t_plane_ammo[16] = {96, 96, 127, 80, 96, 96, 127, 80,
 
 int player_was_on_airfield[16];
 
-void model_planes() {
-  int c;
-  int mass;
-  int initial_turn;
-  int oldup;
-  int yyy, xxx;
-  int temp;
+namespace world::plane {
 
-  for (c = 0; c < 16; c++) {
-    if (!player_exists[c])
-      continue;
+    void model_planes() {
+        int c, mass, initial_turn, oldup, yyy, xxx, temp;
 
-    if (player_upsidedown[c]) {
-      oldup = controls_up[c];
-      controls_up[c] = controls_down[c];
-      controls_down[c] = oldup;
-    }
+        for (c = 0; c < 16; c++) {
+            if (!player_exists[c])
+                continue;
 
-    if (player_spinning[c] || spinning_remaining[c]) {
-      controls_up[c] = 0;
-      controls_down[c] = 0;
-    }
+            if (player_upsidedown[c]) {
+                oldup = controls_up[c];
+                controls_up[c] = controls_down[c];
+                controls_down[c] = oldup;
+            }
 
-    mass = plane_mass[c];
-    mass += player_ammo[c] / 10;
-    if (plane_bombs[c] != 6)
-      mass += player_bombs[c] * 12;
-    else
-      mass += player_bombs[c] * 10;
+            if (player_spinning[c] || spinning_remaining[c]) {
+                controls_up[c] = 0;
+                controls_down[c] = 0;
+            }
 
-    mass += player_gas[c] / 160;
+            mass = plane_mass[c];
+            mass += player_ammo[c] / 10;
+            if (plane_bombs[c] != 6)
+                mass += player_bombs[c] * 12;
+            else
+                mass += player_bombs[c] * 10;
 
-    if (player_y[c] < 0 && !player_spinning[c]) {
-      spinning_remaining[c] = util::wutil::wrandom(10) + 25;
-    }
+            mass += player_gas[c] / 160;
 
-    if (controls_power[c]) {
-      if (player_speed[c] < (1000 + mass)) {
-        player_y[c] += (1000 - player_speed[c] + mass) >> 3;
-      }
-    } else {
-      if (player_speed[c] < (1500 + mass)) {
-        player_y[c] += (1350 - player_speed[c] + mass) >> 3;
-      }
-    }
+            if (player_y[c] < 0 && !player_spinning[c]) {
+                spinning_remaining[c] = util::wutil::wrandom(10) + 25;
+            }
 
-    initial_turn = (plane_manover[c] << 8) / (mass + 200);
+            if (controls_power[c]) {
+                if (player_speed[c] < (1000 + mass)) {
+                    player_y[c] += (1000 - player_speed[c] + mass) >> 3;
+                }
+            } else {
+                if (player_speed[c] < (1500 + mass)) {
+                    player_y[c] += (1350 - player_speed[c] + mass) >> 3;
+                }
+            }
 
-    if (player_speed[c] < 768 || player_spinning[c] || spinning_remaining[c]) {
-      if ((!player_on_airfield[c]) && (!player_was_on_airfield[c])) {
-        if (player_y[c] < 0)
-          player_y[c] += 768;
+            initial_turn = (plane_manover[c] << 8) / (mass + 200);
 
-        initial_turn = 0;
-        if (player_angle[c] < (90 << 8) && player_angle[c] >= 0)
-          player_angle[c] -= 1024;
-        else if (player_angle[c] > (90 << 8) && player_angle[c] < (270 << 8))
-          player_angle[c] += 1024;
-        else if (player_angle[c] > (270 << 8))
-          player_angle[c] -= 1024;
-        player_y[c] += 256;
-      } else {
-        player_on_airfield[c] = player_was_on_airfield[c];
-        if (player_speed[c]) {
+            if (player_speed[c] < 768 || player_spinning[c] || spinning_remaining[c]) {
+                if ((!player_on_airfield[c]) && (!player_was_on_airfield[c])) {
+                    if (player_y[c] < 0)
+                        player_y[c] += 768;
 
-          if (player_angle[c] <= (TAIL_HIT_ANGLE << 8) ||
-              player_angle[c] >= ((360 - HIT_ANGLE) << 8)) {
-            player_angle[c] += (768 - player_speed[c]) / 2;
-            if (player_angle[c] > (TAIL_HIT_ANGLE << 8))
-              player_angle[c] = TAIL_HIT_ANGLE << 8;
-          }
+                    initial_turn = 0;
+                    if (player_angle[c] < (90 << 8) && player_angle[c] >= 0)
+                        player_angle[c] -= 1024;
+                    else if (player_angle[c] > (90 << 8) && player_angle[c] < (270 << 8))
+                        player_angle[c] += 1024;
+                    else if (player_angle[c] > (270 << 8))
+                        player_angle[c] -= 1024;
+                    player_y[c] += 256;
+                } else {
+                    player_on_airfield[c] = player_was_on_airfield[c];
+                    if (player_speed[c]) {
 
-          if (player_angle[c] <= ((180 - TAIL_HIT_ANGLE) << 8) &&
-              player_angle[c] >= ((180 + HIT_ANGLE) << 8)) {
-            player_angle[c] -= (768 - player_speed[c]) / 2;
-            if (player_angle[c] < ((180 + 6 - TAIL_HIT_ANGLE) << 8))
-              player_angle[c] = (180 + 6 - TAIL_HIT_ANGLE) << 8;
-          }
+                        if (player_angle[c] <= (TAIL_HIT_ANGLE << 8) ||
+                            player_angle[c] >= ((360 - HIT_ANGLE) << 8)) {
+                            player_angle[c] += (768 - player_speed[c]) / 2;
+                            if (player_angle[c] > (TAIL_HIT_ANGLE << 8))
+                                player_angle[c] = TAIL_HIT_ANGLE << 8;
+                        }
+
+                        if (player_angle[c] <= ((180 - TAIL_HIT_ANGLE) << 8) &&
+                            player_angle[c] >= ((180 + HIT_ANGLE) << 8)) {
+                            player_angle[c] -= (768 - player_speed[c]) / 2;
+                            if (player_angle[c] < ((180 + 6 - TAIL_HIT_ANGLE) << 8))
+                                player_angle[c] = (180 + 6 - TAIL_HIT_ANGLE) << 8;
+                        }
+                    }
+                    player_y[c] += 512;
+                }
+            } else {
+                initial_turn /= 1 + (((player_speed[c] - 768) / 20) >> 8);
+            }
+
+            if (player_angle[c] >= (360 << 8))
+                player_angle[c] -= 360 << 8;
+            if (player_angle[c] < 0)
+                player_angle[c] += 360 << 8;
+
+            if (controls_up[c] || controls_down[c]) {
+
+                if (player_speed[c] > 0) {
+                    player_speed[c] -= initial_turn / 100;
+                }
+                if (player_speed[c] < 0) {
+                    player_speed[c] += initial_turn / 100;
+                }
+            }
+
+            if (player_speed[c] < 512) {
+                controls_up[c] = 0;
+                controls_down[c] = 0;
+            }
+
+            if (player_on_airfield[c] && !(controls_power[c] && player_gas[c]))
+                if (player_speed[c] < STOP_SPEED_LIMIT &&
+                    player_speed[c] > -STOP_SPEED_LIMIT)
+                    player_speed[c] = 0;
+
+            if (!player_on_airfield[c])
+                if (player_angle[c] > (180 << 8)) {
+                    player_speed[c] +=
+                            ((90 << 8) - abs(player_angle[c] - (270 << 8))) * mass / 32000;
+                }
+            if (!player_on_airfield[c])
+                if (player_angle[c] < (180 << 8) && player_angle[c] > 0)
+                    player_speed[c] -=
+                            ((90 << 8) - abs(player_angle[c] - (90 << 8))) * mass / 32000;
+
+            if (controls_power[c] && player_gas[c]) {
+                // Give player speed
+                int speedIncrease = (plane_power[c] << 8);
+
+                // If plane is badly damaged, decrease speed
+                if (util::wutil::wrandom(plane_mass[c] >> 4) >= player_endurance[c] && util::wutil::wrandom(2)) {
+                    speedIncrease = speedIncrease / 4;
+                }
+
+                player_speed[c] += speedIncrease / mass;
+                player_gas[c]--;
+            }
+
+            player_speed[c] -= player_speed[c] / 50;
+
+            if (player_speed[c]) {
+                if (controls_up[c])
+                    player_angle[c] += initial_turn;
+                if (controls_down[c])
+                    player_angle[c] -= initial_turn;
+            }
+
+            if (player_angle[c] >= (360 << 8))
+                player_angle[c] -= 360 << 8;
+            if (player_angle[c] < 0)
+                player_angle[c] += 360 << 8;
+
+            if (player_on_airfield[c] && !player_speed[c]) {
+                if (((player_angle[c] >> 8) <= TAIL_HIT_ANGLE) ||
+                    ((player_angle[c] >> 8) >= (360 - HIT_ANGLE)))
+                    player_angle[c] = TAIL_HIT_ANGLE << 8;
+                else
+                    player_angle[c] = (180 + 6 - TAIL_HIT_ANGLE) << 8;
+            }
+
+            if (player_on_airfield[c] && player_speed[c] < 512) {
+                if (((player_angle[c] >> 8) <= TAIL_HIT_ANGLE) ||
+                    ((player_angle[c] >> 8) >= (360 - HIT_ANGLE)))
+                    temp = (TAIL_HIT_ANGLE << 8) - (player_speed[c] * 10);
+                else
+                    temp = ((180 + 6 - TAIL_HIT_ANGLE) << 8) + (player_speed[c] * 10);
+
+                if (temp > player_angle[c]) {
+                    if ((temp - player_angle[c]) < 256)
+                        player_angle[c] = temp;
+                    else
+                        player_angle[c] += 256;
+                }
+
+                if (temp < player_angle[c]) {
+                    if ((player_angle[c] - temp) < 256)
+                        player_angle[c] = temp;
+                    else
+                        player_angle[c] -= 256;
+                }
+            }
+
+            player_x_speed[c] =
+                    (util::wutil::cosinit[player_angle[c] >> 8] * player_speed[c]) / SPEED;
+            player_y_speed[c] = (util::wutil::sinit[player_angle[c] >> 8] * player_speed[c]) / SPEED;
+            player_x[c] += player_x_speed[c] >> 8;
+            if (!(player_on_airfield[c] && player_speed[c] < 768))
+                player_y[c] -= player_y_speed[c] >> 8;
+
+            if (player_on_airfield[c]) {
+                if (!player_upsidedown[c]) {
+                    yyy = 5;
+                    xxx = 5;
+
+                } else {
+                    yyy = -5;
+                    xxx = 5;
+                }
+
+                plane_tire_y = (player_y[c]) +
+                               (((-xxx * util::wutil::sinit[player_angle[c] >> 8] +
+                                  yyy * util::wutil::cosinit[player_angle[c] >> 8] + 128) >>
+                                                                                          8)
+                                       << 8) +
+                               256;
+
+                if ((plane_tire_y) >
+                    (leveldata.airfield_y[player_on_airfield[c] - 1] << 8))
+                    player_y[c] -= (plane_tire_y) -
+                                   ((leveldata.airfield_y[player_on_airfield[c] - 1]) << 8);
+            }
+
+            player_x_8[c] = player_x[c] >> 8;
+            player_y_8[c] = player_y[c] >> 8;
+
+            if ((!playing_solo) && config.unlimited_ammo) {
+                if (player_ammo[c] < 1)
+                    player_ammo[c] = 1;
+            }
+
+            if ((!playing_solo) && config.unlimited_gas) {
+                if (player_gas[c] < 1)
+                    player_gas[c] = 1;
+            }
         }
-        player_y[c] += 512;
-      }
-    } else {
-      initial_turn /= 1 + (((player_speed[c] - 768) / 20) >> 8);
     }
 
-    if (player_angle[c] >= (360 << 8))
-      player_angle[c] -= 360 << 8;
-    if (player_angle[c] < 0)
-      player_angle[c] += 360 << 8;
-
-    if (controls_up[c] || controls_down[c]) {
-
-      if (player_speed[c] > 0) {
-        player_speed[c] -= initial_turn / 100;
-      }
-      if (player_speed[c] < 0) {
-        player_speed[c] += initial_turn / 100;
-      }
+    int get_player_points(int player) {
+        return playing_solo || player > 3
+               ? player_points[player]
+               : (player_points[player] + player_points[player + 4] +
+                  player_points[player + 8]);
     }
 
-    if (player_speed[c] < 512) {
-      controls_up[c] = 0;
-      controls_down[c] = 0;
-    }
-
-    if (player_on_airfield[c] && !(controls_power[c] && player_gas[c]))
-      if (player_speed[c] < STOP_SPEED_LIMIT &&
-          player_speed[c] > -STOP_SPEED_LIMIT)
-        player_speed[c] = 0;
-
-    if (!player_on_airfield[c])
-      if (player_angle[c] > (180 << 8)) {
-        player_speed[c] +=
-            ((90 << 8) - abs(player_angle[c] - (270 << 8))) * mass / 32000;
-      }
-    if (!player_on_airfield[c])
-      if (player_angle[c] < (180 << 8) && player_angle[c] > 0)
-        player_speed[c] -=
-            ((90 << 8) - abs(player_angle[c] - (90 << 8))) * mass / 32000;
-
-    if (controls_power[c] && player_gas[c]) {
-      // Give player speed
-      int speedIncrease = (plane_power[c] << 8);
-
-      // If plane is badly damaged, decrease speed
-      if (util::wutil::wrandom(plane_mass[c] >> 4) >= player_endurance[c] && util::wutil::wrandom(2)) {
-        speedIncrease = speedIncrease / 4;
-      }
-
-      player_speed[c] += speedIncrease / mass;
-      player_gas[c]--;
-    }
-
-    player_speed[c] -= player_speed[c] / 50;
-
-    if (player_speed[c]) {
-      if (controls_up[c])
-        player_angle[c] += initial_turn;
-      if (controls_down[c])
-        player_angle[c] -= initial_turn;
-    }
-
-    if (player_angle[c] >= (360 << 8))
-      player_angle[c] -= 360 << 8;
-    if (player_angle[c] < 0)
-      player_angle[c] += 360 << 8;
-
-    if (player_on_airfield[c] && !player_speed[c]) {
-      if (((player_angle[c] >> 8) <= TAIL_HIT_ANGLE) ||
-          ((player_angle[c] >> 8) >= (360 - HIT_ANGLE)))
-        player_angle[c] = TAIL_HIT_ANGLE << 8;
-      else
-        player_angle[c] = (180 + 6 - TAIL_HIT_ANGLE) << 8;
-    }
-
-    if (player_on_airfield[c] && player_speed[c] < 512) {
-      if (((player_angle[c] >> 8) <= TAIL_HIT_ANGLE) ||
-          ((player_angle[c] >> 8) >= (360 - HIT_ANGLE)))
-        temp = (TAIL_HIT_ANGLE << 8) - (player_speed[c] * 10);
-      else
-        temp = ((180 + 6 - TAIL_HIT_ANGLE) << 8) + (player_speed[c] * 10);
-
-      if (temp > player_angle[c]) {
-        if ((temp - player_angle[c]) < 256)
-          player_angle[c] = temp;
-        else
-          player_angle[c] += 256;
-      }
-
-      if (temp < player_angle[c]) {
-        if ((player_angle[c] - temp) < 256)
-          player_angle[c] = temp;
-        else
-          player_angle[c] -= 256;
-      }
-    }
-
-    player_x_speed[c] =
-        (util::wutil::cosinit[player_angle[c] >> 8] * player_speed[c]) / SPEED;
-    player_y_speed[c] = (util::wutil::sinit[player_angle[c] >> 8] * player_speed[c]) / SPEED;
-    player_x[c] += player_x_speed[c] >> 8;
-    if (!(player_on_airfield[c] && player_speed[c] < 768))
-      player_y[c] -= player_y_speed[c] >> 8;
-
-    if (player_on_airfield[c]) {
-      if (!player_upsidedown[c]) {
-        yyy = 5;
-        xxx = 5;
-
-      } else {
-        yyy = -5;
-        xxx = 5;
-      }
-
-      plane_tire_y = (player_y[c]) +
-                     (((-xxx * util::wutil::sinit[player_angle[c] >> 8] +
-                        yyy * util::wutil::cosinit[player_angle[c] >> 8] + 128) >>
-                       8)
-                      << 8) +
-                     256;
-
-      if ((plane_tire_y) >
-          (leveldata.airfield_y[player_on_airfield[c] - 1] << 8))
-        player_y[c] -= (plane_tire_y) -
-                       ((leveldata.airfield_y[player_on_airfield[c] - 1]) << 8);
-    }
-
-    player_x_8[c] = player_x[c] >> 8;
-    player_y_8[c] = player_y[c] >> 8;
-
-    if ((!playing_solo) && config.unlimited_ammo) {
-      if (player_ammo[c] < 1)
-        player_ammo[c] = 1;
-    }
-
-    if ((!playing_solo) && config.unlimited_gas) {
-      if (player_gas[c] < 1)
-        player_gas[c] = 1;
-    }
-  }
-}
-
-int get_player_points(int player) {
-  return playing_solo || player > 3
-             ? player_points[player]
-             : (player_points[player] + player_points[player + 4] +
-                player_points[player + 8]);
-}
+} // namespace world::plane

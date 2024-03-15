@@ -50,12 +50,12 @@ struct level_struct {
   int32_t plane_direction[4];
 } leveldata;
 
-std::unique_ptr<Bitmap> pb_picture;
-std::unique_ptr<Bitmap> struct_picture[MAX_STRUCTURES];
-std::unique_ptr<Bitmap> hiirikursori = nullptr;
-std::unique_ptr<Bitmap> hiirik;
-std::unique_ptr<Bitmap> lappu1;
-std::unique_ptr<Bitmap> lappu2;
+std::unique_ptr<gfx::bitmap::Bitmap> pb_picture;
+std::unique_ptr<gfx::bitmap::Bitmap> struct_picture[MAX_STRUCTURES];
+std::unique_ptr<gfx::bitmap::Bitmap> hiirikursori = nullptr;
+std::unique_ptr<gfx::bitmap::Bitmap> hiirik;
+std::unique_ptr<gfx::bitmap::Bitmap> lappu1;
+std::unique_ptr<gfx::bitmap::Bitmap> lappu2;
 
 int picture_width[MAX_STRUCTURES];
 int picture_height[MAX_STRUCTURES];
@@ -91,39 +91,27 @@ void swap_byte_order() {
 }
 
 void omaline(int x1, int y1, int x2, int y2, unsigned char c) {
-  if (x1 >= 320 || x2 < 0)
-    return;
+  if (x1 >= 320 || x2 < 0) { return; }
 
-  if (y1 >= 320 || y2 < 0)
-    return;
+  if (y1 >= 320 || y2 < 0) { return; }
 
-  if (x1 < 0)
-    x1 = 0;
+  if (x1 < 0) { x1 = 0; }
 
-  if (x2 >= 320)
-    x2 = 319;
+  if (x2 >= 320) { x2 = 319; }
 
-  if (y1 < 0)
-    y1 = 0;
+  if (y1 < 0) { y1 = 0; }
 
-  if (y2 >= 200)
-    y2 = 199;
+  if (y2 >= 200) { y2 = 199; }
 
-  draw_line(x1, y1, x2, y2, c);
+  gfx::gfx::draw_line(x1, y1, x2, y2, c);
 }
 
 void edit_level() {
-  int ch = 0;
-  int kohta = 0;
-  int c;
-  int x, y, n1, n2;
-  int current = -1;
-  int active = -1;
-  int airfield_set = -1;
+  int ch = 0, kohta = 0, c, x, y, n1, n2, current = -1, active = -1, airfield_set = -1;
   unsigned char colori = 0;
   FILE *faili;
 
-  std::unique_ptr<Bitmap> pointti(new Bitmap(1, 1, &colori));
+  std::unique_ptr<gfx::bitmap::Bitmap> pointti(new gfx::bitmap::Bitmap(1, 1, &colori));
 
   while (ch != SDLK_ESCAPE) {
     colori++;
@@ -139,7 +127,7 @@ void edit_level() {
       if (leveldata.struct_x[active] >= kohta &&
           leveldata.struct_x[active] <= (kohta + 300))
 
-        boxi(leveldata.struct_x[active] - kohta, leveldata.struct_y[active],
+        gfx::gfx::boxi(leveldata.struct_x[active] - kohta, leveldata.struct_y[active],
              leveldata.struct_x[active] - kohta + picture_width[active],
              leveldata.struct_y[active] + picture_height[active], 1);
     }
@@ -231,10 +219,10 @@ void edit_level() {
         fontti->scanf(10, 20, leveldata.pd_name[c], 6);
         if (!leveldata.pd_name[c][0])
           break;
-        if (!bitmap_exists(leveldata.pd_name[c]))
+        if (!gfx::bitmap::bitmap_exists(leveldata.pd_name[c]))
           break;
 
-        struct_picture[c] = std::make_unique<Bitmap>(leveldata.pd_name[c]);
+        struct_picture[c] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[c]);
         hiirikursori = std::move(struct_picture[c]);
         hiirikursori->info(&picture_width[c], &picture_height[c]);
         current = c;
@@ -253,12 +241,12 @@ void edit_level() {
 
         strcpy(leveldata.pd_name[c], "INFAN");
 
-        if (!bitmap_exists(leveldata.pd_name[c]))
+        if (!gfx::bitmap::bitmap_exists(leveldata.pd_name[c]))
           break;
 
         leveldata.struct_owner[c] = 0;
         leveldata.struct_type[c] = 0;
-        struct_picture[c] = std::make_unique<Bitmap>(leveldata.pd_name[c]);
+        struct_picture[c] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[c]);
         hiirikursori = std::move(struct_picture[c]);
         hiirikursori->info(&picture_width[c], &picture_height[c]);
         current = c;
@@ -276,12 +264,12 @@ void edit_level() {
 
         strcpy(leveldata.pd_name[c], "INFAN");
 
-        if (!bitmap_exists(leveldata.pd_name[c]))
+        if (!gfx::bitmap::bitmap_exists(leveldata.pd_name[c]))
           break;
 
         leveldata.struct_owner[c] = 1;
         leveldata.struct_type[c] = 0;
-        struct_picture[c] = std::make_unique<Bitmap>(leveldata.pd_name[c]);
+        struct_picture[c] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[c]);
         hiirikursori = std::move(struct_picture[c]);
         hiirikursori->info(&picture_width[c], &picture_height[c]);
         current = c;
@@ -299,12 +287,12 @@ void edit_level() {
 
         strcpy(leveldata.pd_name[c], "INFAN");
 
-        if (!bitmap_exists(leveldata.pd_name[c]))
+        if (!gfx::bitmap::bitmap_exists(leveldata.pd_name[c]))
           break;
 
         leveldata.struct_owner[c] = 2;
         leveldata.struct_type[c] = 0;
-        struct_picture[c] = std::make_unique<Bitmap>(leveldata.pd_name[c]);
+        struct_picture[c] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[c]);
         hiirikursori = std::move(struct_picture[c]);
         hiirikursori->info(&picture_width[c], &picture_height[c]);
         current = c;
@@ -322,12 +310,12 @@ void edit_level() {
 
         strcpy(leveldata.pd_name[c], "INFAN");
 
-        if (!bitmap_exists(leveldata.pd_name[c]))
+        if (!gfx::bitmap::bitmap_exists(leveldata.pd_name[c]))
           break;
 
         leveldata.struct_owner[c] = 3;
         leveldata.struct_type[c] = 0;
-        struct_picture[c] = std::make_unique<Bitmap>(leveldata.pd_name[c]);
+        struct_picture[c] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[c]);
         hiirikursori = std::move(struct_picture[c]);
         hiirikursori->info(&picture_width[c], &picture_height[c]);
         current = c;
@@ -372,11 +360,11 @@ void edit_level() {
         temp_stringi[0] = 0;
         fontti->scanf(265, 178, temp_stringi, 6);
 
-        if (!bitmap_exists(temp_stringi))
+        if (!gfx::bitmap::bitmap_exists(temp_stringi))
           break;
 
         strcpy(leveldata.pb_name, temp_stringi);
-        pb_picture = std::make_unique<Bitmap>(temp_stringi);
+        pb_picture = std::make_unique<gfx::bitmap::Bitmap>(temp_stringi);
         break;
 
       case SDLK_PAGEDOWN:
@@ -504,7 +492,7 @@ void edit_level() {
     for (c = 0; c < MAX_STRUCTURES; c++) {
 
       if (leveldata.struct_x[c]) {
-        struct_picture[c] = std::make_unique<Bitmap>(leveldata.pd_name[c]);
+        struct_picture[c] = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pd_name[c]);
         struct_picture[c]->info(&picture_width[c], &picture_height[c]);
       }
     }
@@ -514,19 +502,19 @@ void edit_level() {
   fontti = std::make_unique<gfx::font::Font>("G2FONT");
 
   printf("Loading cursor\n\r");
-  hiirik = std::make_unique<Bitmap>("FONTT1");
+  hiirik = std::make_unique<gfx::bitmap::Bitmap>("FONTT1");
   hiirikursori = std::move(hiirik);
 
   if (leveldata.pb_name[0]) {
     printf("Loading background picture\n\r");
 
-    pb_picture = std::make_unique<Bitmap>(leveldata.pb_name);
+    pb_picture = std::make_unique<gfx::bitmap::Bitmap>(leveldata.pb_name);
   }
 
   printf("Loading background papers\n\r");
 
-  lappu1 = std::make_unique<Bitmap>("LAPPU1");
-  lappu2 = std::make_unique<Bitmap>("LAPPU2");
+  lappu1 = std::make_unique<gfx::bitmap::Bitmap>("LAPPU1");
+  lappu2 = std::make_unique<gfx::bitmap::Bitmap>("LAPPU2");
 
   init_vga("PALET5");
 

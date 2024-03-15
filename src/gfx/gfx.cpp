@@ -24,97 +24,101 @@
 #include <cassert>
 #include <cstring>
 
-static void do_isa_clear();
+std::unique_ptr<gfx::bitmap::Bitmap> standard_background;
 
-std::unique_ptr<Bitmap> standard_background;
+namespace gfx::gfx {
 
-void putpix(int x, int y, unsigned char c, int x1, int y1, int x2, int y2) {
-  if (x < x1)
-    return;
-  if (x > x2)
-    return;
-  if (y < y1)
-    return;
-  if (y > y2)
-    return;
-  if (update_vircr_mode) {
-    if (current_mode == VGA_MODE) {
-      vircr[x + (y << 8) + (y << 6)] = c;
-    } else {
-      vircr[x + y * screen_width] = c;
-    }
-  }
+    static void do_isa_clear();
 
-  if (!draw_with_vircr_mode)
-    fillrect(x, y, 1, 1, c);
-}
+    void putpix(int x, int y, unsigned char c, int x1, int y1, int x2, int y2) {
+        if (x < x1)
+            return;
+        if (x > x2)
+            return;
+        if (y < y1)
+            return;
+        if (y > y2)
+            return;
+        if (update_vircr_mode) {
+            if (current_mode == VGA_MODE) {
+                vircr[x + (y << 8) + (y << 6)] = c;
+            } else {
+                vircr[x + y * screen_width] = c;
+            }
+        }
 
-void draw_line(int x1, int y1, int x2, int y2, unsigned char vari) {
-  int omalask;
-
-  if (x1 == x2) {
-    if (y1 > y2) {
-      omalask = y1;
-      y1 = y2;
-      y2 = omalask;
-    }
-    fill_vircr(x1, y1, x2, y2, vari);
-  } else if (y1 == y2) {
-    if (x1 > x2) {
-      omalask = x1;
-      x1 = x2;
-      x2 = omalask;
-    }
-    fill_vircr(x1, y1, x2, y2, vari);
-  }
-}
-
-void boxi(int x1, int y1, int x2, int y2, unsigned char vari) {
-  draw_line(x1, y1, x2, y1, vari);
-  draw_line(x1, y1, x1, y2, vari);
-  draw_line(x2, y2, x2, y1, vari);
-  draw_line(x2, y2, x1, y2, vari);
-}
-
-void fill_vircr(int x1, int y1, int x2, int y2, unsigned char vari) {
-  int lasky;
-
-  if (update_vircr_mode) {
-    for (lasky = y1; lasky <= y2; lasky++)
-      memset(&vircr[x1 + lasky * 320], vari, x2 - x1 + 1);
-  }
-
-  if (!draw_with_vircr_mode)
-    fillrect(x1, y1, x2 - x1 + 1, y2 - y1 + 1, vari);
-}
-
-void tyhjaa_vircr() {
-  if (standard_background == nullptr) {
-    if (current_mode == VGA_MODE) {
-      fill_vircr(0, 0, 319, 199, 0);
-    } else {
-      assert(current_mode == SVGA_MODE);
-      fill_vircr(0, 0, screen_width_less, screen_height_less, 0);
+        if (!draw_with_vircr_mode)
+            fillrect(x, y, 1, 1, c);
     }
 
-    do_isa_clear();
-  }
-}
+    void draw_line(int x1, int y1, int x2, int y2, unsigned char vari) {
+        int omalask;
 
-static void do_isa_clear() {
-  if (!standard_background) {
-    return;
-  }
+        if (x1 == x2) {
+            if (y1 > y2) {
+                omalask = y1;
+                y1 = y2;
+                y2 = omalask;
+            }
+            fill_vircr(x1, y1, x2, y2, vari);
+        } else if (y1 == y2) {
+            if (x1 > x2) {
+                omalask = x1;
+                x1 = x2;
+                x2 = omalask;
+            }
+            fill_vircr(x1, y1, x2, y2, vari);
+        }
+    }
 
-  if (current_mode == VGA_MODE) {
-    standard_background->blit_fullscreen();
-  } else {
-    standard_background->blit(0, 0, 0, 0, screen_width_less,
-                              screen_height_less);
-  }
-}
+    void boxi(int x1, int y1, int x2, int y2, unsigned char vari) {
+        draw_line(x1, y1, x2, y1, vari);
+        draw_line(x1, y1, x1, y2, vari);
+        draw_line(x2, y2, x2, y1, vari);
+        draw_line(x2, y2, x1, y2, vari);
+    }
 
-void do_all_clear(int /*do_retrace*/) {
-  do_all();
-  do_isa_clear();
-}
+    void fill_vircr(int x1, int y1, int x2, int y2, unsigned char vari) {
+        int lasky;
+
+        if (update_vircr_mode) {
+            for (lasky = y1; lasky <= y2; lasky++)
+                memset(&vircr[x1 + lasky * 320], vari, x2 - x1 + 1);
+        }
+
+        if (!draw_with_vircr_mode)
+            fillrect(x1, y1, x2 - x1 + 1, y2 - y1 + 1, vari);
+    }
+
+    void tyhjaa_vircr() {
+        if (standard_background == nullptr) {
+            if (current_mode == VGA_MODE) {
+                fill_vircr(0, 0, 319, 199, 0);
+            } else {
+                assert(current_mode == SVGA_MODE);
+                fill_vircr(0, 0, screen_width_less, screen_height_less, 0);
+            }
+
+            do_isa_clear();
+        }
+    }
+
+    static void do_isa_clear() {
+        if (!standard_background) {
+            return;
+        }
+
+        if (current_mode == VGA_MODE) {
+            standard_background->blit_fullscreen();
+        } else {
+            standard_background->blit(0, 0, 0, 0, screen_width_less,
+                                      screen_height_less);
+        }
+    }
+
+    void do_all_clear(int /*do_retrace*/) {
+        do_all();
+        do_isa_clear();
+    }
+
+} // namespace gfx::gfx

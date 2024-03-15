@@ -246,7 +246,7 @@ static int init_mode(int new_mode, const char *paletname) {
   dksclose();
 
   setpal_range(ruutu.paletti, 0, 256);
-  all_bitmaps_refresh();
+  gfx::bitmap::all_bitmaps_refresh();
 
   current_mode = new_mode;
   return 1;

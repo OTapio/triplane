@@ -28,13 +28,13 @@ namespace gfx::fades {
 
     void horisontal_split() {
         int c1 = 0, c2 = 1;
-        std::unique_ptr<Bitmap> upper(new Bitmap(0, 0, 320, 100));
-        std::unique_ptr<Bitmap> lower(new Bitmap(0, 100, 320, 100));
+        std::unique_ptr<bitmap::Bitmap> upper(new bitmap::Bitmap(0, 0, 320, 100));
+        std::unique_ptr<bitmap::Bitmap> lower(new bitmap::Bitmap(0, 100, 320, 100));
 
         while (c1 < 150) {
             upper->blit(0, 0 - c1);
             lower->blit(0, 100 + c1);
-            do_all_clear();
+            gfx::do_all_clear();
             c1 += c2;
             c2++;
         }
@@ -42,13 +42,13 @@ namespace gfx::fades {
 
     void vertical_split() {
         int c1 = 0, c2 = 1;
-        std::unique_ptr<Bitmap> left(new Bitmap(0, 0, 160, 200));
-        std::unique_ptr<Bitmap> right(new Bitmap(160, 0, 160, 200));
+        std::unique_ptr<bitmap::Bitmap> left(new bitmap::Bitmap(0, 0, 160, 200));
+        std::unique_ptr<bitmap::Bitmap> right(new bitmap::Bitmap(160, 0, 160, 200));
 
         while (c1 < 200) {
             left->blit(0 - c1, 0);
             right->blit(160 + c1, 0);
-            do_all_clear();
+            gfx::do_all_clear();
             c1 += c2;
             c2++;
         }
@@ -61,18 +61,17 @@ namespace gfx::fades {
             for (c2 = 0; c2 < 7500; c2++) {
                 int r = util::wutil::wrandom(64000);
                 int x = r % 320, y = r / 320;
-                putpix(x, y, 0, 0, 0, 319, 199);
+                gfx::putpix(x, y, 0, 0, 0, 319, 199);
             }
             do_all();
         }
-        tyhjaa_vircr();
+        gfx::tyhjaa_vircr();
         do_all();
     }
 
     void partial_fade() {
         unsigned char next_color[256];
-        int hit_value, temp_hit_value;
-        int c, c2, c3, temp;
+        int hit_value, temp_hit_value, c, c2, c3, temp;
 
         assert(update_vircr_mode);
 
@@ -81,20 +80,16 @@ namespace gfx::fades {
         for (c = 1; c < 256; c++) {
             hit_value = 1500000;
             for (c2 = 0; c2 < 255; c2++) {
-                if (c2 == c)
-                    continue;
+                if (c2 == c) { continue; }
 
                 temp = ((ruutu.paletti[c][0] - 2) - ruutu.paletti[c2][0]);
-                if (temp < 0)
-                    temp = 63;
+                if (temp < 0) { temp = 63; }
                 temp_hit_value = temp * temp * temp;
                 temp = ((ruutu.paletti[c][1] - 2) - ruutu.paletti[c2][1]);
-                if (temp < 0)
-                    temp = 63;
+                if (temp < 0) { temp = 63; }
                 temp_hit_value += temp * temp * temp;
                 temp = ((ruutu.paletti[c][2] - 2) - ruutu.paletti[c2][2]);
-                if (temp < 0)
-                    temp = 63;
+                if (temp < 0) { temp = 63; }
                 temp_hit_value += temp * temp * temp;
                 if ((temp_hit_value < hit_value)) {
                     hit_value = temp_hit_value;
@@ -105,14 +100,16 @@ namespace gfx::fades {
 
         for (c = 0; c < 232; c += 3) {
             for (c2 = 0; c2 < 63; c2++) {
-                if ((c - c2) >= 0 && (c - c2) <= 199)
-                    for (c3 = 0; c3 < 320; c3++)
-                        putpix(c3, c - c2, next_color[vircr[c3 + (c - c2) * 320]], 0, 0, 319,
-                               199);
+                if ((c - c2) >= 0 && (c - c2) <= 199) {
+                    for (c3 = 0; c3 < 320; c3++) {
+                        gfx::putpix(c3, c - c2, next_color[vircr[c3 + (c - c2) * 320]], 0, 0, 319,
+                                    199);
+                    }
+                }
             }
             do_all();
         }
-        tyhjaa_vircr();
+        gfx::tyhjaa_vircr();
         do_all();
     }
 
@@ -122,7 +119,7 @@ namespace gfx::fades {
         t = util::wutil::wrandom(5);
 
         if (current_mode == SVGA_MODE) {
-            do_all_clear();
+            gfx::do_all_clear();
             return;
         }
 

@@ -65,41 +65,23 @@ extern int itgun_shot_age[MAX_ITGUN_SHOTS];
 namespace world::tripai {
 
     void do_infan();
-
     void infan_to_plane(int l);
-
     void infan_to_infan(int l);
-
     void infan_to_struct(int l);
-
     void infan_take_hits(int l);
-
     void do_kkbase();
-
     void start_it_shot(int x, int y, int angle);
-
     void do_it_shots();
-
     void start_itgun_explosion(int number);
-
     void do_ai(int number);
-
     void ai_turn_down(int number);
-
     void ai_turn_up(int number);
-
     void ai_evade_terrain(int number);
-
     void ai_turnplus(int number);
-
     void ai_turnminus(int number);
-
     void ai_do_bombing(int number);
-
     int check_structs(int x, int y, int number);
-
     void do_mekan();
-
     void do_doors();
 
 } // namespace world::tripai

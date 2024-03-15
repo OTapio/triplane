@@ -34,7 +34,7 @@ namespace gfx::font {
         int temppi;
         int kokox, kokoy;
         char valiteksti[7];
-        std::unique_ptr<Bitmap> valikuva;
+        std::unique_ptr<bitmap::Bitmap> valikuva;
 
         scaled = 0;
         scaled_space = 3;
@@ -43,7 +43,7 @@ namespace gfx::font {
             glyphs[temppi] = nullptr;
 
         if (strlen(font_name) == 6) {
-            valikuva = std::make_unique<Bitmap>(font_name);
+            valikuva = std::make_unique<bitmap::Bitmap>(font_name);
             valikuva->info(&kokox, &kokoy);
             kokox--;
             kokoy--;
@@ -51,7 +51,7 @@ namespace gfx::font {
             height = kokoy / 16 - 1;
             for (temp = 0; temp < 256; temp++)
                 glyphs[temp] =
-                        new Bitmap(1 + (temp - ((temp >> 4) << 4)) * (width + 1),
+                        new bitmap::Bitmap(1 + (temp - ((temp >> 4) << 4)) * (width + 1),
                                    1 + (temp >> 4) * (height + 1), width, height, valikuva);
         } else
             for (temp = 0; temp < 256; temp++) {
@@ -61,7 +61,7 @@ namespace gfx::font {
 
                 if (dksopen(valiteksti)) {
                     dksclose();
-                    glyphs[temp] = new Bitmap(valiteksti);
+                    glyphs[temp] = new bitmap::Bitmap(valiteksti);
                     glyphs[temp]->info(&width, &height);
                 } else
                     glyphs[temp] = nullptr;
@@ -130,10 +130,10 @@ namespace gfx::font {
 
     int Font::scanf(int x, int y, char *str, int max_len) {
         int kohta = 0;
-        Bitmap *tausta_roska;
+        bitmap::Bitmap *tausta_roska;
         char ch;
 
-        tausta_roska = new Bitmap(x, y, (width + 1) * (max_len + 1), height);
+        tausta_roska = new bitmap::Bitmap(x, y, (width + 1) * (max_len + 1), height);
 
         kohta = strlen(str);
 

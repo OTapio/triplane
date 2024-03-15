@@ -47,7 +47,6 @@ extern sb_mod_file *triplane_mod;
 extern sb_mod_file *aces_mod;
 extern sb_sample *sample_hurr;
 
-
 char mission_description[80 * 16];
 char mission_lines[16][80];
 int mission_pixels[16];
@@ -56,19 +55,16 @@ int mission_headline_pixels;
 int aces_number_of_entries;
 int aces_score[MAX_PLAYERS_IN_ROSTER];
 
-constexpr int32_t CHARS_PER_LINE = 70;
-constexpr int32_t LINELENGHT = 100;
-
 sb_mod_file *national_mod = nullptr;
 
 char rank_names[6][10] = {"2nd Lt.", "1st Lt.", "Capt.",
                           "Major",   "Lt Col.", "Colonel"};
 
 /**************************** Functions ***************************************/
-void joystick_roster_setup(Bitmap *controlme);
+void joystick_roster_setup(gfx::bitmap::Bitmap *controlme);
 
 void show_feat5() {
-  std::unique_ptr<Bitmap> feat5(new Bitmap("FEAT5"));
+  std::unique_ptr<gfx::bitmap::Bitmap> feat5(new gfx::bitmap::Bitmap("FEAT5"));
   int n1 = 0, n2 = 0;
   int x, y;
 
@@ -529,7 +525,7 @@ void load_descriptions(const int number) {
 
   mission_headline_pixels = frost->printf(0, 0, "%s", mission_names[number]);
 
-  tyhjaa_vircr();
+  gfx::gfx::tyhjaa_vircr();
 
   util::wutil::wfree(temp_storage);
 }
@@ -539,10 +535,10 @@ int solo_player_menu() {
   char missionnames[4][7] = {"MISSI0", "MISSI1", "MISSI2", "MISSI3"};
   char modnames[4][7] = {"mgerma", "mfinla", "mengla", "mjapan"};
 
-  std::unique_ptr<Bitmap> misboa;
-  std::unique_ptr<Bitmap> misbak;
-  std::unique_ptr<Bitmap> face;
-  std::unique_ptr<Bitmap> mission;
+  std::unique_ptr<gfx::bitmap::Bitmap> misboa;
+  std::unique_ptr<gfx::bitmap::Bitmap> misbak;
+  std::unique_ptr<gfx::bitmap::Bitmap> face;
+  std::unique_ptr<gfx::bitmap::Bitmap> mission;
   int flag = 0;
   int l;
   int x, y, n1, n2;
@@ -569,19 +565,19 @@ int solo_player_menu() {
     flag = 3;
 
   } else {
-    misboa = std::make_unique<Bitmap>("MISBOA");
-    misbak = std::make_unique<Bitmap>("MISBAK", 0);
+    misboa = std::make_unique<gfx::bitmap::Bitmap>("MISBOA");
+    misbak = std::make_unique<gfx::bitmap::Bitmap>("MISBAK", 0);
 
-    face = std::make_unique<Bitmap>(facenames[solo_country]);
-    mission = std::make_unique<Bitmap>(missionnames[solo_country]);
+    face = std::make_unique<gfx::bitmap::Bitmap>(facenames[solo_country]);
+    mission = std::make_unique<gfx::bitmap::Bitmap>(missionnames[solo_country]);
 
     misbak->blit(0, 0);
     misboa->blit(9, 4);
     face->blit(0, 0);
     mission->blit(22, 19, 0, 0, 319, 46 + highest_mission * 27);
 
-    standard_background = std::make_unique<Bitmap>(0, 0, 320, 200);
-    do_all_clear();
+    standard_background = std::make_unique<gfx::bitmap::Bitmap>(0, 0, 320, 200);
+    gfx::gfx::do_all_clear();
   }
 
   if ((mission_re_fly == -1) && is_there_sound && config.music_on &&
@@ -604,7 +600,7 @@ int solo_player_menu() {
     koords(&x, &y, &n1, &n2);
 
     cursor->blit(x - 10, y - 10);
-    do_all_clear();
+    gfx::gfx::do_all_clear();
 
     if (n1 || n2) {
       for (l = 0; l <= highest_mission; l++) {
@@ -630,7 +626,7 @@ int solo_player_menu() {
   if (flag == 1)
     gfx::fades::random_fade_out();
   else {
-    tyhjaa_vircr();
+    gfx::gfx::tyhjaa_vircr();
     do_all();
   }
 
@@ -671,17 +667,17 @@ void roster_menu() {
   int keysetmode = 0;
   int help_on = 0;
   char ch;
-  std::unique_ptr<Bitmap> help;
-  Bitmap *rosteri;
-  std::unique_ptr<Bitmap> buttl;
-  std::unique_ptr<Bitmap> buttr;
-  std::unique_ptr<Bitmap> setk1;
-  std::unique_ptr<Bitmap> setk2;
-  std::unique_ptr<Bitmap> medal2[4];
-  std::unique_ptr<Bitmap> medal3;
-  std::unique_ptr<Bitmap> medal5;
-  std::unique_ptr<Bitmap> temp;
-  std::unique_ptr<Bitmap> ribbon[6];
+  std::unique_ptr<gfx::bitmap::Bitmap> help;
+  gfx::bitmap::Bitmap *rosteri;
+  std::unique_ptr<gfx::bitmap::Bitmap> buttl;
+  std::unique_ptr<gfx::bitmap::Bitmap> buttr;
+  std::unique_ptr<gfx::bitmap::Bitmap> setk1;
+  std::unique_ptr<gfx::bitmap::Bitmap> setk2;
+  std::unique_ptr<gfx::bitmap::Bitmap> medal2[4];
+  std::unique_ptr<gfx::bitmap::Bitmap> medal3;
+  std::unique_ptr<gfx::bitmap::Bitmap> medal5;
+  std::unique_ptr<gfx::bitmap::Bitmap> temp;
+  std::unique_ptr<gfx::bitmap::Bitmap> ribbon[6];
   int l, l2, l3, l4;
   int rank;
 
@@ -689,25 +685,25 @@ void roster_menu() {
       number = 0;
   }
 
-  rosteri = new Bitmap("ROSTER");
-  buttl = std::make_unique<Bitmap>("BUTTL"); // 187,174
-  buttr = std::make_unique<Bitmap>("BUTTR"); // 205,174
-  setk1 = std::make_unique<Bitmap>("SETK1");
-  setk2 = std::make_unique<Bitmap>("SETK2");
-  help = std::make_unique<Bitmap>("HELP2");
-  temp = std::make_unique<Bitmap>("MEDAL2");
-  medal3 = std::make_unique<Bitmap>("MEDAL3");
+  rosteri = new gfx::bitmap::Bitmap("ROSTER");
+  buttl = std::make_unique<gfx::bitmap::Bitmap>("BUTTL"); // 187,174
+  buttr = std::make_unique<gfx::bitmap::Bitmap>("BUTTR"); // 205,174
+  setk1 = std::make_unique<gfx::bitmap::Bitmap>("SETK1");
+  setk2 = std::make_unique<gfx::bitmap::Bitmap>("SETK2");
+  help = std::make_unique<gfx::bitmap::Bitmap>("HELP2");
+  temp = std::make_unique<gfx::bitmap::Bitmap>("MEDAL2");
+  medal3 = std::make_unique<gfx::bitmap::Bitmap>("MEDAL3");
 
   for (l = 0; l < 4; l++) {
-    medal2[l] = std::make_unique<Bitmap>(1 + l * 17, 1, 16, 28, temp);
+    medal2[l] = std::make_unique<gfx::bitmap::Bitmap>(1 + l * 17, 1, 16, 28, temp);
   }
 
-  medal5 = std::make_unique<Bitmap>(1 + 4 * 17, 1, 16, 28, temp);
+  medal5 = std::make_unique<gfx::bitmap::Bitmap>(1 + 4 * 17, 1, 16, 28, temp);
 
-  temp = std::make_unique<Bitmap>("RIBBON");
+  temp = std::make_unique<gfx::bitmap::Bitmap>("RIBBON");
 
   for (l = 0; l < 6; l++)
-    ribbon[l] = std::make_unique<Bitmap>(36 * l, 0, 35, 8, temp);
+    ribbon[l] = std::make_unique<gfx::bitmap::Bitmap>(36 * l, 0, 35, 8, temp);
 
   hiiri_to(264, 109);
 
@@ -935,7 +931,7 @@ void roster_menu() {
         if (n1)
           gfx::fades::random_fade_out();
         else {
-          tyhjaa_vircr();
+          gfx::gfx::tyhjaa_vircr();
           do_all();
         }
 
@@ -1122,12 +1118,12 @@ void options_menu() {
   int x, y, n1, n2;
   int menuselect;
   int menusubselect = 0;
-  std::unique_ptr<Bitmap> optionme(new Bitmap("OPTION"));
-  std::unique_ptr<Bitmap> kohta[4];
-  std::unique_ptr<Bitmap> right(new Bitmap("RIGHT"));
-  std::unique_ptr<Bitmap> wrong(new Bitmap("WRONG"));
-  std::unique_ptr<Bitmap> opt1(new Bitmap("OPT1"));
-  std::unique_ptr<Bitmap> opt2(new Bitmap("OPT2"));
+  std::unique_ptr<gfx::bitmap::Bitmap> optionme(new gfx::bitmap::Bitmap("OPTION"));
+  std::unique_ptr<gfx::bitmap::Bitmap> kohta[4];
+  std::unique_ptr<gfx::bitmap::Bitmap> right(new gfx::bitmap::Bitmap("RIGHT"));
+  std::unique_ptr<gfx::bitmap::Bitmap> wrong(new gfx::bitmap::Bitmap("WRONG"));
+  std::unique_ptr<gfx::bitmap::Bitmap> opt1(new gfx::bitmap::Bitmap("OPT1"));
+  std::unique_ptr<gfx::bitmap::Bitmap> opt2(new gfx::bitmap::Bitmap("OPT2"));
   int optimode = 0;
   int l;
 
@@ -1136,10 +1132,10 @@ void options_menu() {
                             "Phychological questions about flying.",
                             "Questions about hostile environments."};
 
-  kohta[3] = std::make_unique<Bitmap>("OPTI1");
-  kohta[2] = std::make_unique<Bitmap>("OPTI2");
-  kohta[1] = std::make_unique<Bitmap>("OPTI3");
-  kohta[0] = std::make_unique<Bitmap>("OPTI4");
+  kohta[3] = std::make_unique<gfx::bitmap::Bitmap>("OPTI1");
+  kohta[2] = std::make_unique<gfx::bitmap::Bitmap>("OPTI2");
+  kohta[1] = std::make_unique<gfx::bitmap::Bitmap>("OPTI3");
+  kohta[0] = std::make_unique<gfx::bitmap::Bitmap>("OPTI4");
 
   while (!exit_flag) {
     if (kbhit())
@@ -1165,44 +1161,30 @@ void options_menu() {
       frost->printf(73, 120, "Structure smoke?");
 
       for (l = 0; l < 7; l++) {
-        boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
-        boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
+        gfx::gfx::boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
+        gfx::gfx::boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
       }
 
-      if (config.shots_visible)
-        right->blit(215, 60);
-      else
-        wrong->blit(225, 60);
+      if (config.shots_visible) { right->blit(215, 60); }
+      else { wrong->blit(225, 60); }
 
-      if (config.it_shots_visible)
-        right->blit(215, 70);
-      else
-        wrong->blit(225, 70);
+      if (config.it_shots_visible) { right->blit(215, 70); }
+      else { wrong->blit(225, 70); }
 
-      if (config.aa_mg_shots_visible)
-        right->blit(215, 80);
-      else
-        wrong->blit(225, 80);
+      if (config.aa_mg_shots_visible) { right->blit(215, 80); }
+      else { wrong->blit(225, 80); }
 
-      if (config.flags)
-        right->blit(215, 90);
-      else
-        wrong->blit(225, 90);
+      if (config.flags) { right->blit(215, 90); }
+      else { wrong->blit(225, 90); }
 
-      if (config.flames)
-        right->blit(215, 100);
-      else
-        wrong->blit(225, 100);
+      if (config.flames) { right->blit(215, 100); }
+      else { wrong->blit(225, 100); }
 
-      if (config.structure_smoke)
-        right->blit(215, 120);
-      else
-        wrong->blit(225, 120);
+      if (config.structure_smoke) { right->blit(215, 120); }
+      else { wrong->blit(225, 120); }
 
-      if (config.svga)
-        right->blit(215, 110);
-      else
-        wrong->blit(225, 110);
+      if (config.svga) { right->blit(215, 110); }
+      else { wrong->blit(225, 110); }
 
       break;
 
@@ -1218,44 +1200,30 @@ void options_menu() {
       frost->printf(73, 130, "Infantry sounds?");
 
       for (l = 0; l < 8; l++) {
-        boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
-        boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
+        gfx::gfx::boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
+        gfx::gfx::boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
       }
 
-      if (config.sound_on)
-        right->blit(215, 60);
-      else
-        wrong->blit(225, 60);
+      if (config.sound_on) { right->blit(215, 60); }
+      else { wrong->blit(225, 60); }
 
-      if (config.music_on)
-        right->blit(215, 70);
-      else
-        wrong->blit(225, 70);
+      if (config.music_on) { right->blit(215, 70); }
+      else { wrong->blit(225, 70); }
 
-      if (config.sfx_on)
-        right->blit(215, 80);
-      else
-        wrong->blit(225, 80);
+      if (config.sfx_on) { right->blit(215, 80); }
+      else { wrong->blit(225, 80); }
 
-      if (config.explosion_sounds)
-        right->blit(215, 90);
-      else
-        wrong->blit(225, 90);
+      if (config.explosion_sounds) { right->blit(215, 90); }
+      else { wrong->blit(225, 90); }
 
-      if (config.gunshot_sounds)
-        right->blit(215, 100);
-      else
-        wrong->blit(225, 100);
+      if (config.gunshot_sounds) { right->blit(215, 100); }
+      else { wrong->blit(225, 100); }
 
-      if (config.ground_i_sounds)
-        right->blit(215, 110);
-      else
-        wrong->blit(225, 110);
+      if (config.ground_i_sounds) { right->blit(215, 110); }
+      else { wrong->blit(225, 110); }
 
-      if (config.splash)
-        right->blit(215, 120);
-      else
-        wrong->blit(225, 120);
+      if (config.splash) { right->blit(215, 120); }
+      else { wrong->blit(225, 120); }
 
       if (config.infantry_sounds)
         right->blit(215, 130);
@@ -1270,19 +1238,15 @@ void options_menu() {
       frost->printf(73, 70, "Do you want a reversed\n  powerswitch?");
 
       for (l = 0; l < 2; l++) {
-        boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
-        boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
+        gfx::gfx::boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
+        gfx::gfx::boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
       }
 
-      if (config.poweronoff)
-        right->blit(215, 60);
-      else
-        wrong->blit(225, 60);
+      if (config.poweronoff) { right->blit(215, 60); }
+      else { wrong->blit(225, 60); }
 
-      if (config.powerrev)
-        right->blit(215, 70);
-      else
-        wrong->blit(225, 70);
+      if (config.powerrev) { right->blit(215, 70); }
+      else { wrong->blit(225, 70); }
 
       break;
 
@@ -1302,31 +1266,26 @@ void options_menu() {
       for (l = 0; l < 10; l++) {
         if (l == 3)
           continue;
-        boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
-        boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
+        gfx::gfx::boxi(214, 60 + l * 10, 221, 68 + l * 10, 0);
+        gfx::gfx::boxi(224, 60 + l * 10, 231, 68 + l * 10, 0);
       }
 
       if (config.all_planes_are) {
         right->blit(215, 60);
         opt1->blit(1, 1);
-        boxi(34, 10, 41, 18, 0);
-        boxi(34, 31, 41, 39, 0);
-        boxi(34, 52, 41, 60, 0);
-        boxi(34, 73, 41, 81, 0);
+        gfx::gfx::boxi(34, 10, 41, 18, 0);
+        gfx::gfx::boxi(34, 31, 41, 39, 0);
+        gfx::gfx::boxi(34, 52, 41, 60, 0);
+        gfx::gfx::boxi(34, 73, 41, 81, 0);
 
         right->blit(35, config.all_planes_are * 21 - 11);
-      } else
-        wrong->blit(225, 60);
+      } else { wrong->blit(225, 60); }
 
-      if (config.nocollision)
-        right->blit(215, 70);
-      else
-        wrong->blit(225, 70);
+      if (config.nocollision) { right->blit(215, 70); }
+      else { wrong->blit(225, 70); }
 
-      if (config.partcollision)
-        right->blit(215, 80);
-      else
-        wrong->blit(225, 80);
+      if (config.partcollision) { right->blit(215, 80); }
+      else { wrong->blit(225, 80); }
 
       /*
          if(config.stop)
@@ -1335,43 +1294,30 @@ void options_menu() {
          wrong->blit(225,90);
        */
 
-      if (config.stop)
-        frost->printf(216, 91, "%d", config.stop);
-      else
-        frost->printf(216, 91, "UnLtd");
+      if (config.stop) { frost->printf(216, 91, "%d", config.stop); }
+      else { frost->printf(216, 91, "UnLtd"); }
 
       if (config.alliance) {
         right->blit(215, 100);
         opt2->blit(1, 92);
-        boxi(5, 92 + config.alliance * 32 - 28, 53,
+        gfx::gfx::boxi(5, 92 + config.alliance * 32 - 28, 53,
              92 + config.alliance * 32 + 4, 38);
-      } else
-        wrong->blit(225, 100);
+      } else { wrong->blit(225, 100); }
 
-      if (config.aa_mgs)
-        right->blit(215, 110);
-      else
-        wrong->blit(225, 110);
+      if (config.aa_mgs) { right->blit(215, 110); }
+      else { wrong->blit(225, 110); }
 
-      if (config.it_guns)
-        right->blit(215, 120);
-      else
-        wrong->blit(225, 120);
+      if (config.it_guns) { right->blit(215, 120); }
+      else { wrong->blit(225, 120); }
 
-      if (config.infantry)
-        right->blit(215, 130);
-      else
-        wrong->blit(225, 130);
+      if (config.infantry) { right->blit(215, 130); }
+      else { wrong->blit(225, 130); }
 
-      if (config.unlimited_ammo)
-        right->blit(215, 140);
-      else
-        wrong->blit(225, 140);
+      if (config.unlimited_ammo) { right->blit(215, 140); }
+      else { wrong->blit(225, 140); }
 
-      if (config.unlimited_gas)
-        right->blit(215, 150);
-      else
-        wrong->blit(225, 150);
+      if (config.unlimited_gas) { right->blit(215, 150); }
+      else { wrong->blit(225, 150); }
 
       break;
     }
@@ -1617,7 +1563,7 @@ void options_menu() {
         if (n1)
           gfx::fades::random_fade_out();
         else {
-          tyhjaa_vircr();
+          gfx::gfx::tyhjaa_vircr();
           do_all();
         }
         exit_flag = 1;
@@ -1777,35 +1723,30 @@ void options_menu() {
 }
 
 void transfer_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int menuselect;
-  std::unique_ptr<Bitmap> color_bites[6];
-    std::unique_ptr<Bitmap> descs[6];
-  int l;
+  int x, y, n1, n2, menuselect, l, exit_flag = 0;
+  std::unique_ptr<gfx::bitmap::Bitmap> color_bites[6];
+  std::unique_ptr<gfx::bitmap::Bitmap> descs[6];
 
-  std::unique_ptr<Bitmap> optionme(new Bitmap("TRANS2"));
+  std::unique_ptr<gfx::bitmap::Bitmap> optionme(new gfx::bitmap::Bitmap("TRANS2"));
 
-  color_bites[0] = std::make_unique<Bitmap>(39, 46, 80, 50, optionme);
-  color_bites[1] = std::make_unique<Bitmap>(119, 46, 80, 50, optionme);
-  color_bites[2] = std::make_unique<Bitmap>(199, 46, 80, 50, optionme);
-  color_bites[3] = std::make_unique<Bitmap>(39, 96, 80, 50, optionme);
-  color_bites[4] = std::make_unique<Bitmap>(119, 96, 80, 50, optionme);
-  color_bites[5] = std::make_unique<Bitmap>(199, 96, 80, 50, optionme);
+  color_bites[0] = std::make_unique<gfx::bitmap::Bitmap>(39, 46, 80, 50, optionme);
+  color_bites[1] = std::make_unique<gfx::bitmap::Bitmap>(119, 46, 80, 50, optionme);
+  color_bites[2] = std::make_unique<gfx::bitmap::Bitmap>(199, 46, 80, 50, optionme);
+  color_bites[3] = std::make_unique<gfx::bitmap::Bitmap>(39, 96, 80, 50, optionme);
+  color_bites[4] = std::make_unique<gfx::bitmap::Bitmap>(119, 96, 80, 50, optionme);
+  color_bites[5] = std::make_unique<gfx::bitmap::Bitmap>(199, 96, 80, 50, optionme);
 
-  descs[0] = std::make_unique<Bitmap>("DESC1");
-  descs[1] = std::make_unique<Bitmap>("DESC2");
-  descs[2] = std::make_unique<Bitmap>("DESC3");
-  descs[3] = std::make_unique<Bitmap>("DESC4");
-  descs[4] = std::make_unique<Bitmap>("DESC5");
-  descs[5] = std::make_unique<Bitmap>("DESC6");
+  descs[0] = std::make_unique<gfx::bitmap::Bitmap>("DESC1");
+  descs[1] = std::make_unique<gfx::bitmap::Bitmap>("DESC2");
+  descs[2] = std::make_unique<gfx::bitmap::Bitmap>("DESC3");
+  descs[3] = std::make_unique<gfx::bitmap::Bitmap>("DESC4");
+  descs[4] = std::make_unique<gfx::bitmap::Bitmap>("DESC5");
+  descs[5] = std::make_unique<gfx::bitmap::Bitmap>("DESC6");
 
-  optionme = std::make_unique<Bitmap>("TRANSF");
+  optionme = std::make_unique<gfx::bitmap::Bitmap>("TRANSF");
 
   while (!exit_flag) {
-    if (kbhit())
-      if (getch() == 27)
-        exit_flag = 1;
+    if (kbhit()) { if (getch() == 27) { exit_flag = 1; }}
 
     koords(&x, &y, &n1, &n2);
     optionme->blit(0, 0);
@@ -1827,13 +1768,14 @@ void transfer_menu() {
       menuselect = 2;
     }
 
-    for (l = 0; l < 6; l++)
-      if (x >= (39 + l * 80 - (l / 3) * 240) &&
-          x <= (118 + l * 80 - (l / 3) * 240) && y >= (46 + (l / 3) * 50) &&
-          y <= (95 + (l / 3) * 50)) {
-        // frost->printf(25,180,"Select level %d",l+1);
-        menuselect = 3 + l;
-      }
+    for (l = 0; l < 6; l++) {
+        if (x >= (39 + l * 80 - (l / 3) * 240) &&
+            x <= (118 + l * 80 - (l / 3) * 240) && y >= (46 + (l / 3) * 50) &&
+            y <= (95 + (l / 3) * 50)) {
+            // frost->printf(25,180,"Select level %d",l+1);
+            menuselect = 3 + l;
+        }
+    }
 
     cursor->blit(x - 10, y - 10);
     do_all();
@@ -1842,10 +1784,9 @@ void transfer_menu() {
       switch (menuselect) {
 
       case 2:
-        if (n1)
-          gfx::fades::random_fade_out();
+        if (n1) { gfx::fades::random_fade_out(); }
         else {
-          tyhjaa_vircr();
+          gfx::gfx::tyhjaa_vircr();
           do_all();
         }
         exit_flag = 1;
@@ -1861,7 +1802,7 @@ void transfer_menu() {
   wait_mouse_relase();
 }
 
-static void joystick_setup(int joy, std::unique_ptr<Bitmap>& controlme) {
+static void joystick_setup(int joy, std::unique_ptr<gfx::bitmap::Bitmap>& controlme) {
   Sint16 *idle, *current;
   int i, c;
   struct {
@@ -1876,14 +1817,10 @@ static void joystick_setup(int joy, std::unique_ptr<Bitmap>& controlme) {
               {"Brake", &joystick_config[joy].brake},
               {nullptr, nullptr}};
 
-  if (joy == 0)
-    open_close_joysticks(1, 0, 0, 0);
-  else if (joy == 1)
-    open_close_joysticks(0, 1, 0, 0);
-  else if (joy == 2)
-    open_close_joysticks(0, 0, 1, 0);
-  else if (joy == 3)
-    open_close_joysticks(0, 0, 0, 1);
+  if (joy == 0) { open_close_joysticks(1, 0, 0, 0); }
+  else if (joy == 1) { open_close_joysticks(0, 1, 0, 0); }
+  else if (joy == 2) { open_close_joysticks(0, 0, 1, 0); }
+  else if (joy == 3) { open_close_joysticks(0, 0, 0, 1); }
 
   idle = allocate_axis_state(joy);
   current = allocate_axis_state(joy);
@@ -1895,8 +1832,7 @@ static void joystick_setup(int joy, std::unique_ptr<Bitmap>& controlme) {
   do {
     c = getch();
   } while (c != 27 && c != ' ');
-  if (c == 27)
-    goto joystick_setup_exit;
+  if (c == 27) { goto joystick_setup_exit; }
 
   save_axis_state(idle, joy);
 
@@ -1927,7 +1863,7 @@ joystick_setup_exit:
   open_close_joysticks(0, 0, 0, 0);
 }
 
-void joystick_roster_setup(Bitmap *controlme) {
+void joystick_roster_setup(gfx::bitmap::Bitmap *controlme) {
   Sint16 *idle, *current;
   int i, c;
   struct {
@@ -1988,30 +1924,25 @@ joystick_setup_exit:
 
 void controls_menu() {
   char ch;
-  int help_on = 0;
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int menuselect;
-  std::unique_ptr<Bitmap> controlme(new Bitmap("NAPPIS"));
-  std::array<std::unique_ptr<Bitmap>, 4> napp;
-  std::unique_ptr<Bitmap> help(new Bitmap("HELP4"));
+  int help_on = 0, exit_flag = 0, x, y, n1, n2, menuselect;
+  std::unique_ptr<gfx::bitmap::Bitmap> controlme(new gfx::bitmap::Bitmap("NAPPIS"));
+  std::array<std::unique_ptr<gfx::bitmap::Bitmap>, 4> napp;
+  std::unique_ptr<gfx::bitmap::Bitmap> help(new gfx::bitmap::Bitmap("HELP4"));
   int active = 0;
 
-  napp[0] = std::make_unique<Bitmap>("NAPPRE");
-  napp[1] = std::make_unique<Bitmap>("NAPPBL");
-  napp[2] = std::make_unique<Bitmap>("NAPPGR");
-  napp[3] = std::make_unique<Bitmap>("NAPPYL");
+  napp[0] = std::make_unique<gfx::bitmap::Bitmap>("NAPPRE");
+  napp[1] = std::make_unique<gfx::bitmap::Bitmap>("NAPPBL");
+  napp[2] = std::make_unique<gfx::bitmap::Bitmap>("NAPPGR");
+  napp[3] = std::make_unique<gfx::bitmap::Bitmap>("NAPPYL");
 
   while (!exit_flag) {
     if (kbhit()) {
       if (!(ch = getch())) {
         ch = getch();
-        if (ch == 59)
-          util::wutil::wtoggle(&help_on);
+        if (ch == 59) { util::wutil::wtoggle(&help_on); }
 
       } else {
-        if (ch == 27)
-          exit_flag = 1;
+        if (ch == 27) { exit_flag = 1; }
       }
     }
 
@@ -2099,14 +2030,10 @@ void controls_menu() {
                     SDL_GetKeyName((SDLKey)player_keys[active].guns));
     } else {
       int joy = 0;
-      if (config.joystick[0] == active)
-        joy = 0;
-      else if (config.joystick[1] == active)
-        joy = 1;
-      else if (config.joystick[2] == active)
-        joy = 2;
-      else if (config.joystick[3] == active)
-        joy = 3;
+      if (config.joystick[0] == active) { joy = 0; }
+      else if (config.joystick[1] == active) { joy = 1; }
+      else if (config.joystick[2] == active) { joy = 2; }
+      else if (config.joystick[3] == active) { joy = 3; }
       char *ups = get_joy_action_string(&joystick_config[joy].up);
       char *downs = get_joy_action_string(&joystick_config[joy].down);
       char *rolls = get_joy_action_string(&joystick_config[joy].roll);
@@ -2136,15 +2063,13 @@ void controls_menu() {
       switch (menuselect) {
 
       case 2:
-        if (n1)
-          gfx::fades::random_fade_out();
+        if (n1) { gfx::fades::random_fade_out(); }
         exit_flag = 1;
         break;
 
       case 3:
         for (int i = 0; i < 4; i++) {
-          if (config.joystick[i] == active)
-            config.joystick[i] = -1;
+          if (config.joystick[i] == active) { config.joystick[i] = -1; }
         }
 
         controlme->blit(0, 0);
@@ -2251,19 +2176,12 @@ void controls_menu() {
 }
 
 void assign_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int menuselect;
-  int menusubselect1 = 0, menusubselect2 = 0;
-  std::unique_ptr<Bitmap> acesme(new Bitmap("ASSIGN"));
-  std::unique_ptr<Bitmap> ruksi(new Bitmap("RUKSI"));
-  std::unique_ptr<Bitmap> help(new Bitmap("HELP5"));
-  int l, lx, ly;
-  int l2, l3;
+  int exit_flag = 0, x, y, n1, n2, menuselect, menusubselect1 = 0, menusubselect2 = 0, l, lx, ly, l2, l3, response, help_on = 0;
   int lym[4] = {0, 11, 24, 36};
-  int response;
-  int help_on = 0;
   char ch;
+  std::unique_ptr<gfx::bitmap::Bitmap> acesme(new gfx::bitmap::Bitmap("ASSIGN"));
+  std::unique_ptr<gfx::bitmap::Bitmap> ruksi(new gfx::bitmap::Bitmap("RUKSI"));
+  std::unique_ptr<gfx::bitmap::Bitmap> help(new gfx::bitmap::Bitmap("HELP5"));
 
   if (!roster[0].pilotname[0]) {
     response = small_warning("You have no pilots in the roster and\n"
@@ -2282,12 +2200,10 @@ void assign_menu() {
     if (kbhit()) {
       if (!(ch = getch())) {
         ch = getch();
-        if (ch == 59)
-          util::wutil::wtoggle(&help_on);
+        if (ch == 59) { util::wutil::wtoggle(&help_on); }
 
       } else {
-        if (ch == 27)
-          exit_flag = 1;
+        if (ch == 27) { exit_flag = 1; }
       }
     }
 
@@ -2555,17 +2471,13 @@ void assign_menu() {
 }
 
 void aces_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int menuselect;
-  int current_page = 0;
-  int help_on = 0;
+  int exit_flag = 0, x, y, n1, n2, menuselect, current_page = 0, help_on = 0;
   char ch;
-  std::unique_ptr<Bitmap> acesme(new Bitmap("ACESA"));
-  std::unique_ptr<Bitmap> firstpage(new Bitmap("ACESB"));
-  std::unique_ptr<Bitmap> buttl(new Bitmap("BUTTL"));
-  std::unique_ptr<Bitmap> buttr(new Bitmap("BUTTR"));
-  std::unique_ptr<Bitmap> help(new Bitmap("HELP3"));
+  std::unique_ptr<gfx::bitmap::Bitmap> acesme(new gfx::bitmap::Bitmap("ACESA"));
+  std::unique_ptr<gfx::bitmap::Bitmap> firstpage(new gfx::bitmap::Bitmap("ACESB"));
+  std::unique_ptr<gfx::bitmap::Bitmap> buttl(new gfx::bitmap::Bitmap("BUTTL"));
+  std::unique_ptr<gfx::bitmap::Bitmap> buttr(new gfx::bitmap::Bitmap("BUTTR"));
+  std::unique_ptr<gfx::bitmap::Bitmap> help(new gfx::bitmap::Bitmap("HELP3"));
 
   if (is_there_sound && config.music_on) {
     sdl_stop_music();
@@ -2573,8 +2485,8 @@ void aces_menu() {
   }
 
   acesme->blit(0, 0);
-  standard_background = std::make_unique<Bitmap>(0, 0, 320, 200);
-  do_all_clear();
+  standard_background = std::make_unique<gfx::bitmap::Bitmap>(0, 0, 320, 200);
+  gfx::gfx::do_all_clear();
 
   while (!exit_flag) {
 
@@ -2615,18 +2527,15 @@ void aces_menu() {
       menuselect = 4;
     }
 
-    if (help_on)
-      help->blit(0, 0);
+    if (help_on) { help->blit(0, 0); }
 
-    if (!current_page)
-      aces_grand_total();
-    if (current_page == 1)
-      aces_multi_total();
-    if (current_page == 2)
-      aces_solo_total();
-    if (current_page > 2 && current_page <= 26)
-      aces_one_solo((current_page - 3) / 6,
-                    (current_page - 3) - ((current_page - 3) / 6) * 6);
+    if (!current_page) { aces_grand_total(); }
+    if (current_page == 1) { aces_multi_total(); }
+    if (current_page == 2) { aces_solo_total(); }
+    if (current_page > 2 && current_page <= 26) {
+        aces_one_solo((current_page - 3) / 6,
+                      (current_page - 3) - ((current_page - 3) / 6) * 6);
+    }
 
     switch (current_page) {
     case 27:
@@ -2667,21 +2576,18 @@ void aces_menu() {
         break;
       case 3:
         buttl->blit(231, 177);
-        if ((--current_page) < 0)
-          current_page = 33;
+        if ((--current_page) < 0) { current_page = 33; }
         break;
       case 4:
         buttr->blit(249, 177);
-        if ((++current_page) > 33)
-          current_page = 0;
+        if ((++current_page) > 33) { current_page = 0; }
         break;
       }
     }
 
     cursor->blit(x - 10, y - 10);
-    do_all_clear();
-    if (n1 || n2)
-      wait_mouse_relase();
+    gfx::gfx::do_all_clear();
+    if (n1 || n2) { wait_mouse_relase(); }
   }
 
   if (is_there_sound && config.music_on) {
@@ -2690,24 +2596,19 @@ void aces_menu() {
   }
 
   standard_background = nullptr;
-  if (n1)
-    gfx::fades::random_fade_out();
+  if (n1) { gfx::fades::random_fade_out(); }
 
   wait_mouse_relase();
 }
 
 int kangas_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int menuselect;
-  int place_x = -2079;
-  int showing_texts = 1;
+  int exit_flag = 0, x, y, n1, n2, menuselect, place_x = -2079, showing_texts = 1;
 
-  std::unique_ptr<Bitmap> kangas(new Bitmap("KANGAS", 0));
-  std::unique_ptr<Bitmap> buttr(new Bitmap("BUTTR"));
-  std::unique_ptr<Bitmap> buttl(new Bitmap("BUTTL"));
-  std::unique_ptr<Bitmap> fly(new Bitmap("FLY"));
-  std::unique_ptr<Bitmap> exit(new Bitmap("EXIT"));
+  std::unique_ptr<gfx::bitmap::Bitmap> kangas(new gfx::bitmap::Bitmap("KANGAS", 0));
+  std::unique_ptr<gfx::bitmap::Bitmap> buttr(new gfx::bitmap::Bitmap("BUTTR"));
+  std::unique_ptr<gfx::bitmap::Bitmap> buttl(new gfx::bitmap::Bitmap("BUTTL"));
+  std::unique_ptr<gfx::bitmap::Bitmap> fly(new gfx::bitmap::Bitmap("FLY"));
+  std::unique_ptr<gfx::bitmap::Bitmap> exit(new gfx::bitmap::Bitmap("EXIT"));
 
   init_vga("PALET3");
 
@@ -2731,9 +2632,9 @@ int kangas_menu() {
 
   load_descriptions(solo_mission + solo_country * 6);
 
-  if (is_there_sound && config.sfx_on) {
-    // sb_mix_sample(sample_hurr);
-  }
+//  if (is_there_sound && config.sfx_on) {
+//    // sb_mix_sample(sample_hurr);
+//  }
 
   while (!exit_flag) {
     if (kbhit() && getch() == SDLK_ESCAPE) {
@@ -2744,8 +2645,7 @@ int kangas_menu() {
     kangas->blit_fullscreen();
       world::terrain::kangas_terrain_to_screen(place_x);
 
-    if (showing_texts)
-      show_descriptions(solo_mission + solo_country * 6);
+    if (showing_texts) { show_descriptions(solo_mission + solo_country * 6); }
 
     menuselect = 0;
     if (x >= 72 && x <= 88 && y >= 191 && y <= 199) {
@@ -2814,10 +2714,8 @@ int kangas_menu() {
       }
     }
 
-    if (place_x > 0)
-      place_x = 0;
-    if (place_x < -2079)
-      place_x = -2079;
+    if (place_x > 0) { place_x = 0; }
+    if (place_x < -2079) { place_x = -2079; }
   }
 
   if (is_there_sound && config.sfx_on) {
@@ -2835,20 +2733,14 @@ int kangas_menu() {
   wait_mouse_relase();
 
   init_vga("PALET5");
-
-  if (exit_flag == 2)
-    return 1;
-  else
-    return 0;
+  return exit_flag == 2 ? 1 : 0;
 }
 
 void credits_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int kohta1, kohta2;
+  int exit_flag = 0, x, y, n1, n2, kohta1, kohta2;
 
   std::unique_ptr<gfx::font::Font> grid3(new gfx::font::Font("G3FONT"));
-  std::unique_ptr<Bitmap> credi1(new Bitmap("CREDI1"));
+  std::unique_ptr<gfx::bitmap::Bitmap> credi1(new gfx::bitmap::Bitmap("CREDI1"));
 
   grid3->scale();
 
@@ -2883,30 +2775,26 @@ void credits_menu() {
     do_all();
 
     if (n1 || n2) {
-
-      if (n1)
-        gfx::fades::random_fade_out();
+      if (n1) { gfx::fades::random_fade_out(); }
       exit_flag = 1;
       break;
     }
   }
 
-  tyhjaa_vircr();
+  gfx::gfx::tyhjaa_vircr();
   do_all();
-  if (!findparameter("-debugnographics"))
-    init_vga("PALET5");
+  if (!findparameter("-debugnographics")) { init_vga("PALET5"); }
 
   wait_mouse_relase();
 }
 
 void letter_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
+  int exit_flag = 0, x, y, n1, n2;
   char country_names[4][10] = {"German", "Finnish", "English", "Japanese"};
   char modnames[4][7] = {"mgerma", "mfinla", "mengla", "mjapan"};
 
-  std::unique_ptr<Bitmap> temp(new Bitmap("MEDAL1"));
-  std::unique_ptr<Bitmap> medal1(new Bitmap(1 + 32 * solo_country, 1, 31, 57, temp));
+  std::unique_ptr<gfx::bitmap::Bitmap> temp(new gfx::bitmap::Bitmap("MEDAL1"));
+  std::unique_ptr<gfx::bitmap::Bitmap> medal1(new gfx::bitmap::Bitmap(1 + 32 * solo_country, 1, 31, 57, temp));
 
   if (is_there_sound && config.music_on && !findparameter("-nomusic")) {
     national_mod = sdl_load_mod_file(modnames[solo_country]);
@@ -2917,7 +2805,7 @@ void letter_menu() {
     sdl_play_music(national_mod);
   }
 
-  std::unique_ptr<Bitmap> letter(new Bitmap("LETTER"));
+  std::unique_ptr<gfx::bitmap::Bitmap> letter(new gfx::bitmap::Bitmap("LETTER"));
 
   while (!exit_flag) {
     if (kbhit()) {
@@ -2944,14 +2832,13 @@ void letter_menu() {
 
     if (n1 || n2) {
 
-      if (n1)
-        gfx::fades::random_fade_out();
+      if (n1) { gfx::fades::random_fade_out(); }
       exit_flag = 1;
       break;
     }
   }
 
-  tyhjaa_vircr();
+  gfx::gfx::tyhjaa_vircr();
   do_all();
 
   wait_mouse_relase();
@@ -2963,16 +2850,10 @@ void letter_menu() {
 }
 
 void main_menu() {
-  int exit_flag = 0;
-  int x, y, n1, n2;
-  int menuselect;
-  int l, l2, l3;
-  int help_on = 0;
-  int ch;
-  std::unique_ptr<Bitmap> help(new Bitmap("HELP1"));
+  int exit_flag = 0, x, y, n1, n2, menuselect, l, l2, l3, help_on = 0, ch;
+  std::unique_ptr<gfx::bitmap::Bitmap> help(new gfx::bitmap::Bitmap("HELP1"));
 
   if (is_there_sound && config.music_on) {
-
     sdl_play_music(triplane_mod);
   }
 
@@ -2994,16 +2875,14 @@ void main_menu() {
     grid2->printf(34, 156, "Press F1\nfor Help");
 
     for (l = 0; l < 4; l++)
-      if (config.player_type[l] == 1)
-        break;
+      if (config.player_type[l] == 1) { break; }
 
     if (l == 4) {
       for (l = 0; l < 4; l++)
-        if (config.player_type[l] == 3)
-          break;
+        if (config.player_type[l] == 3) { break; }
 
       if (l == 4) {
-        frost->printf(100, 100, "No assigned pilots");
+          { frost->printf(100, 100, "No assigned pilots"); }
 
       } else {
         frost->printf(100, 85, "Multiplayergame active");
@@ -3124,8 +3003,7 @@ void main_menu() {
       switch (menuselect) {
 
       case 1:
-        int full_seed;
-        int mc_c;
+        int full_seed, mc_c;
 
         for (mc_c = 0; mc_c < 16; mc_c++) {
           mc_up[mc_c] = 0;
@@ -3238,7 +3116,7 @@ void main_menu() {
 
             init_vga("PALET5");
           }
-          tyhjaa_vircr();
+          gfx::gfx::tyhjaa_vircr();
           do_all();
         }
 
@@ -3345,7 +3223,7 @@ void main_menu() {
   }
 }
 
-void print_clear_roster(Bitmap *rosteri) {
+void print_clear_roster(gfx::bitmap::Bitmap *rosteri) {
   rosteri->blit(0, 0);
   grid2->printf(152, 40, "Pilot Info");
 }
